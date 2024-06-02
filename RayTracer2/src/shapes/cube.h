@@ -8,7 +8,9 @@ class Cube : public Object {
 public:
 	Cube(Point const& pos);
 
-	double Cube::distance(Ray const& ray);
+	Point getPosition();
+
+	Hit intersect(Ray const &ray);
 
 	Point const position;
 };

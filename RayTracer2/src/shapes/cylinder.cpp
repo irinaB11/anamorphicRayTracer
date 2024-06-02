@@ -49,6 +49,8 @@ Hit Cylinder::intersect(Ray const& ray) {
     return Hit(t0, N);
 }
 
+Point Cylinder::getPosition() {return position;}
+
 Cylinder::Cylinder(Point const& pos, double radius, double const& height)
     :  // Feel free to modify this constructor.
     position(pos),

@@ -9,6 +9,8 @@ class Cylinder : public Object {
 public:
 	Cylinder(Point const& pos, double radius, double const& height);
 
+	Point Cylinder::getPosition();
+
 	Hit intersect(Ray const& ray) override;
 
 	Point const position;

@@ -6,13 +6,12 @@
 
 using namespace std;
 
-double Cube::distance(Ray const& ray) {
-    // returns the distance between the eye and a vertex of the cube
+Hit Cube::intersect(Ray const &ray) {
 
-    double d = sqrt(ray.D.dot(ray.D));
-
-    return d;
+  return Hit::NO_HIT();
 }
+
+Point Cube::getPosition() {return position;}
 
 Cube::Cube(Point const& pos)
     :  // Feel free to modify this constructor.

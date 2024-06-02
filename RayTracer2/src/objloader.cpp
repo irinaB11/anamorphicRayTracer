@@ -111,12 +111,12 @@ void OBJLoader::parseLine(string const &line) {
 
   if (tokens[0] == "v")
     parseVertex(tokens);
-  else if (tokens[0] == "vn")
-    parseNormal(tokens);
-  else if (tokens[0] == "vt")
-    parseTexCoord(tokens);
-  else if (tokens[0] == "f")
-    parseFace(tokens);
+  // else if (tokens[0] == "vn")
+  //   parseNormal(tokens);
+  // else if (tokens[0] == "vt")
+  //   parseTexCoord(tokens);
+  // else if (tokens[0] == "f")
+  //   parseFace(tokens);
 
   // Other data is also ignored
 }
