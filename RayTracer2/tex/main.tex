@@ -1,0 +1,50 @@
+\documentclass{article}
+    \usepackage{amsmath}
+    \usepackage{parskip}
+
+    \renewcommand{\bf}[1]{\mathbf{#1}}
+    \newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+    \title{RayTracer Assignment 2:\\ Optical Laws, Anti-Aliasing and Texture Mappings}
+    \author{Irina Bodola (s4296966) \\ Eertze van de Riet (s3500098)}
+    \date{\today}
+
+    \begin{document}
+
+        \maketitle
+        For this assignment we will use Eertze's student number, such that    
+        \begin{align*}
+            a &= 8 & b &= 0 & c &= 0 & d &= 0 \\
+        \end{align*}
+
+        \begin{enumerate}
+          \item The relevant variables for this question given $a,b,c,d$ are
+          \begin{align*}
+              n_i &= 1 + \frac{a}{20} = \frac{7}{5} \\
+              n_t &= 2 - \frac{b}{20} = \frac{10}{5} \\
+              \bf{E} &= \pmat{3 + \frac{c}{10} \\ 8 + \frac{d}{10}} = \pmat{3 \\ 8} \\
+              \bf{O} &= \pmat{0 \\ 0} \\
+              \bf{P} &= \pmat{10 \\ 0}
+          \end{align*}
+          Snell's law states that \begin{equation*}
+            n_i\sin{\phi_i} = n_t\sin{\phi_t}
+          \end{equation*}
+          We can solve for $\phi_t$ once we find $\phi_i$.
+          Note that from the dot product formula, we have that
+          \begin{align*}
+            \cos{\phi_i} &= \frac{(\bf{E}-\bf{P})\cdot(\bf{O}-\bf{P})}{\|\bf{E} - \bf{P}\|\cdot\|\bf{O} - \bf{P}\|} \\
+            &= \frac{\pmat{-7 \\ 8}\cdot\pmat{-10 \\ 0}}{\|\pmat{-7 \\ 8}\|\cdot\|\pmat{-10 \\ 0}\|} \\
+            &= \frac{70}{\sqrt{113}\cdot 10} = \frac{7}{\sqrt{113}}
+          \end{align*}
+          hence \begin{equation*}
+            \phi_i = \arccos\left(\frac{7}{\sqrt{113}}\right) \approx 0.85\
+          \end{equation*}
+          Then using Snell's law gives us
+          \begin{align*}
+            \phi_t &= \arcsin\left(\frac{n_i\sin{\phi_i}}{n_t}\right) \\
+            &= \arcsin\left(\frac{\frac{7}{5}\sin\left(\arccos\left(\frac{7}{\sqrt{113}}\right)\right)}{\frac{10}{5}}\right) \\
+            &= \arcsin\left(\frac{28}{5\sqrt{113}}\right) \approx 0.55 \\
+          \end{align*}
+        \end{enumerate}
+
+    \end{document}

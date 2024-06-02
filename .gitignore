@@ -1,0 +1,29 @@
+# Build files
+*.pro.*
+.qmake.stash
+Makefile*
+*.o
+ui_*
+moc*.cpp
+moc*.h
+qrc_*
+qrc_resources.cpp
+*.o
+*.a
+*.lib
+build/
+build-*
+CMakeLists.txt.user
+
+# Latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+main.pdf
+
+# Other
+.vscode/
+.DS_Store*
+*.png

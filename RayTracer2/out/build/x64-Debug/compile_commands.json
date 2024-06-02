@@ -1,0 +1,62 @@
+[
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\image.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\image.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/image.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\lode\\lodepng.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\lode\\lodepng.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/lode/lodepng.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\main.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\main.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/main.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\objloader.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\objloader.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/objloader.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\raytracer.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\raytracer.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/raytracer.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\scene.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\scene.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/scene.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\shapes\\cube.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\shapes\\cube.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/shapes/cube.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\shapes\\cylinder.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\shapes\\cylinder.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/shapes/cylinder.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\shapes\\quad.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\shapes\\quad.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/shapes/quad.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\shapes\\solvers.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\shapes\\solvers.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/shapes/solvers.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\shapes\\sphere.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\shapes\\sphere.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/shapes/sphere.cpp"
+},
+{
+  "directory": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/out/build/x64-Debug",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\COMMUN~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP -Wall --std=c++14 -g /MDd /Zi /Ob0 /Od /RTC1 /FoCMakeFiles\\ray.dir\\src\\triple.cpp.obj /FdTARGET_COMPILE_PDB /FS -c C:\\Users\\bodol\\OneDrive\\Documents\\version2.0\\RayTracer2\\src\\triple.cpp",
+  "file": "C:/Users/bodol/OneDrive/Documents/version2.0/RayTracer2/src/triple.cpp"
+}
+]
