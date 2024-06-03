@@ -57,9 +57,11 @@ bool Raytracer::parseObjectNode(json const &node) {
       double radius = node["radius"];
       double height = node["height"];
       obj = ObjectPtr(new Cylinder(pos, radius, height));
+      cout << "Parsing cylinder.\n";
   } else if (node["type"] == "highVertexCube") {
       Point pos(node["position"]);
       obj = ObjectPtr(new Cube(pos));
+      cout << "Parsing (highVertex)cube.\n";
       //put in object loader to read cube data 
   } else {
     cerr << "Unknown object type: " << node["type"] << ".\n";
@@ -77,39 +79,6 @@ bool Raytracer::parseObjectNode(json const &node) {
   return true;
 }
 
-//Light Raytracer::parseLightNode(json const &node) const {
-//  Point pos(node["position"]);
-//  Color col(node["color"]);
-//  return Light(pos, col);
-//}
-
-//Material Raytracer::parseMaterialNode(json const &node) const {
-//  double ka = node["ka"];
-//  double kd = node["kd"];
-//  double ks = node["ks"];
-//  double n = node["n"];
-//
-//  if (node.count("nt")) {
-//    Color color(node["color"]);
-//    double nt = node["nt"];
-//    return Material(color, ka, kd, ks, n, nt);
-//  }
-//
-//  if (node.count("color")) {
-//    Color color(node["color"]);
-//    return Material(color, ka, kd, ks, n);
-//  }
-//
-//  if (node.count("texture")) {
-//    string imagePath = node["texture"];
-//    Image im(imagePath);
-//    return Material(im, ka, kd, ks, n);
-//  }
-//
-//  // No color or texture specified
-//  return Material(Color(1, 0, 1), ka, kd, ks, n);
-//}
-
 bool Raytracer::readScene(string const &ifname) try {
   // Read and parse input json file
   ifstream infile(ifname);
@@ -123,28 +92,6 @@ bool Raytracer::readScene(string const &ifname) try {
 
   Point eye(jsonscene["Eye"]);
   scene.setEye(eye);
-
-  //if (jsonscene.count("MaxRecursionDepth")) {
-  //  int depth = jsonscene["MaxRecursionDepth"];
-  //  scene.setRecursionDepth(depth);
-  //}
-
-  //if (jsonscene.count("SuperSamplingFactor")) {
-  //  int factor = jsonscene["SuperSamplingFactor"];
-  //  scene.setSuperSample(factor);
-  //}
-
-  //if (jsonscene.count("SuperSamplingFactor")) {
-  //  int factor = jsonscene["SuperSamplingFactor"];
-  //  scene.setSuperSample(factor);
-  //}
-
-  //if (jsonscene.count("Shadows")) {
-  //  bool shadows = jsonscene["Shadows"];
-  //  scene.setRenderShadows(shadows);
-  //}
-
-  //for (auto const &lightNode : jsonscene["Lights"]) scene.addLight(parseLightNode(lightNode));
 
   unsigned objCount = 0;
   for (auto const &objectNode : jsonscene["Objects"])
@@ -164,7 +111,7 @@ bool Raytracer::readScene(string const &ifname) try {
 
 void Raytracer::renderToFile(string const &ofname) {
   // TODO: the size may be a settings in your file
-  scene.render("models/highVertexCube.obj", ofname);
+  scene.render("../models/highVertexCube.obj", ofname);
   cout << "Writing object to " << ofname << "...\n";
   cout << "Done.\n";
 }

@@ -8,9 +8,9 @@ class Cube : public Object {
 public:
 	Cube(Point const& pos);
 
-	Point getPosition();
+	//Point getPosition() override;
 
-	Hit intersect(Ray const &ray);
+	Hit intersect(Ray const &ray) override;
 
 	Point const position;
 };

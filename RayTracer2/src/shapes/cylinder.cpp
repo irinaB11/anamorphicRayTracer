@@ -27,7 +27,7 @@ Hit Cylinder::intersect(Ray const& ray) {
     Vector X = ray.O - T; // Direction of the vector going from the top
                           // of the cylinder to the eye position
 
-    double a = ray.D.dot(D) - ray.D.dot(H) * ray.D.dot(H);
+    double a = ray.D.dot(ray.D) - ray.D.dot(H) * ray.D.dot(H);
     double b = 2.0 * (ray.D.dot(X) - ray.D.dot(H) * X.dot(H));
     double c = X.dot(X) - X.dot(H) * X.dot(H) - r * r;
 
@@ -49,7 +49,7 @@ Hit Cylinder::intersect(Ray const& ray) {
     return Hit(t0, N);
 }
 
-Point Cylinder::getPosition() {return position;}
+//Point getPosition() {return pos;}
 
 Cylinder::Cylinder(Point const& pos, double radius, double const& height)
     :  // Feel free to modify this constructor.

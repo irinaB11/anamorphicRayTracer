@@ -40,25 +40,32 @@ Point Scene::trace(Ray const &ray) {
 
 void Scene::render(string const &filePath, string const& ofname) {
     OBJLoader loadObject(filePath);
+    cout << "About to call unitize.\n";
     vector<Vertex> objectMesh = loadObject.unitize(filePath);
 
-    Point cubePosition = (*objects[1]).getPosition();
+    Point cubePosition(150.0, 0.0, 0.0); //figure out how to get position from pointer to obj
     Point cubePoint(0.0,0.0,0.0);
 
     //move cube mesh to the position given in the scene description
+    cout << "move mesh based on object position.\n";
     for (int idx = 0; idx != objectMesh.size(); ++idx) {
+        cout << "objectMesh.x = " << objectMesh[idx].x << "\n";
+        cout << "objectMesh.y = " << objectMesh[idx].y << "\n";
+        cout << "objectMesh.z = " << objectMesh[idx].z << "\n";
         objectMesh[idx].x = objectMesh[idx].x + cubePosition.x;
         objectMesh[idx].y = objectMesh[idx].y + cubePosition.y;
         objectMesh[idx].z = objectMesh[idx].z + cubePosition.z;
     }
 
-    Ray eyeToVertex( getEye(), (0.0,0.0,0.0));
-    eyeToVertex.O = getEye();
+    Vector direction(0.0, 0.0, 0.0);
+    Ray eyeToVertex( eye, direction);
     vector<Point> deformedCube;
 
     for (int i = 0; i != objectMesh.size(); ++i) {
-        Ray eyeToVertex(getEye(),);
-        eyeToVertex.D = cubePoints[i] - eyeToVertex.O;
+        cubePoint.x = objectMesh[i].x;
+        cubePoint.y = objectMesh[i].y;
+        cubePoint.z = objectMesh[i].z;
+        eyeToVertex.D = cubePoint - eyeToVertex.O;
         deformedCube[i] = trace(eyeToVertex);
     }
 

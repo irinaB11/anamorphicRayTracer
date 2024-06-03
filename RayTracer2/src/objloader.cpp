@@ -37,30 +37,11 @@ vector<Vertex> OBJLoader::vertex_data() const {
     vert.y = coord.y * scaleFactor;
     vert.z = coord.z * scaleFactor;
 
-    //// Add normal data
-    //vec3 const norm = d_normals.at(vertex.d_norm);
-    //vert.nx = norm.x;
-    //vert.ny = norm.y;
-    //vert.nz = norm.z;
-
-    //// Add texture data (if available)
-    //if (d_hasTexCoords) {
-    //  vec2 const tex = d_texCoords.at(vertex.d_tex);
-    //  vert.u = tex.u;  // u coordinate
-    //  vert.v = tex.v;  // v coordinate
-    //} else {
-    //  vert.u = 0;
-    //  vert.v = 0;
-    //}
     data.push_back(vert);
   }
 
   return data;  // copy elision
 }
-
-//unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
-//
-//bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
 
 vector<Vertex> OBJLoader::unitize(string const& filename) {
   // TODO: implement this yourself!
@@ -111,12 +92,6 @@ void OBJLoader::parseLine(string const &line) {
 
   if (tokens[0] == "v")
     parseVertex(tokens);
-  // else if (tokens[0] == "vn")
-  //   parseNormal(tokens);
-  // else if (tokens[0] == "vt")
-  //   parseTexCoord(tokens);
-  // else if (tokens[0] == "f")
-  //   parseFace(tokens);
 
   // Other data is also ignored
 }
@@ -128,46 +103,6 @@ void OBJLoader::parseVertex(StringList const &tokens) {
   z = stof(tokens.at(3));
   d_coordinates.push_back(vec3{x, y, z});
 }
-
-//void OBJLoader::parseNormal(StringList const &tokens) {
-//  float x, y, z;
-//  x = stof(tokens.at(1));  // 0 is the "vn" token
-//  y = stof(tokens.at(2));
-//  z = stof(tokens.at(3));
-//  d_normals.push_back(vec3{x, y, z});
-//}
-//
-//void OBJLoader::parseTexCoord(StringList const &tokens) {
-//  d_hasTexCoords = true;  // Texture data will be read
-//
-//  float u, v;
-//  u = stof(tokens.at(1));  // 0 is the "vt" token
-//  v = stof(tokens.at(2));
-//  d_texCoords.push_back(vec2{u, v});
-//}
-
-//void OBJLoader::parseFace(StringList const &tokens) {
-//  // skip the first token ("f")
-//  for (size_t idx = 1; idx < tokens.size(); ++idx) {
-//    // format is:
-//    // <vertex idx + 1>/<texture idx +1>/<normal idx + 1>
-//    // Wavefront .obj files start counting from 1 (yuck)
-//
-//    StringList elements = split(tokens.at(idx), '/');
-//    Vertex_idx vertex{};  // initialize to zeros on all fields
-//
-//    vertex.d_coord = stoul(elements.at(0)) - 1U;
-//
-//    if (d_hasTexCoords)
-//      vertex.d_tex = stoul(elements.at(1)) - 1U;
-//    else
-//      vertex.d_tex = 0U;  // ignored
-//
-//    vertex.d_norm = stoul(elements.at(2)) - 1U;
-//
-//    d_vertices.push_back(vertex);
-//  }
-//}
 
 OBJLoader::StringList OBJLoader::split(string const &line, char splitChar, bool keepEmpty) {
   StringList tokens;

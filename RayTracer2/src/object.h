@@ -17,7 +17,7 @@ class Object
 public:
   Material material;
 
-  virtual Point getPosition() = 0; //implement in every derived class
+  //virtual Point getPosition() = 0; //implement in every derived class
 
   virtual ~Object() = default;
 

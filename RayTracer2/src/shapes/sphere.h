@@ -9,8 +9,6 @@ class Sphere : public Object {
  public:
   Sphere(Point const &pos, double radius, Vector const &axis = Vector(0.0, 1.0, 0.0), double angle = 0.0);
 
-  Point Sphere::getPosition();
-
   Hit intersect(Ray const &ray) override;
   Vector toUV(Point const &hit) override;
 
@@ -18,6 +16,8 @@ class Sphere : public Object {
   double const r;
   Vector const axis;
   double const angle;
+
+  //Point getPosition() override;
 };
 
 #endif

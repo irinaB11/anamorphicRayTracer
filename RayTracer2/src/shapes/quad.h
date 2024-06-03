@@ -7,6 +7,8 @@ class Quad : public Object {
  public:
   Quad(Point const &v0, Point const &v1, Point const &v2, Point const &v3);
 
+  //Point getPosition() override;
+
   Hit intersect(Ray const &ray) override;
   Vector toUV(Point const &hit) override;
 
