@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "cylinder.h"
 
@@ -6,13 +7,14 @@
 
 using namespace std;
 
-Hit Cylinder::intersect(Ray const& ray) {
+Hit Cylinder::intersect(Ray const &ray)
+{
     // The eye is positioned at the centre of the cylinder.
-    // There is no rotation. The code should be adapted to take into 
+    // There is no rotation. The code should be adapted to take into
     // consideration cases when the eye and the centre of the mirror
-    // do not have the same position. 
+    // do not have the same position.
 
-    Point T, B; // The coordinates of the points at the centre of the 
+    Point T, B; // The coordinates of the points at the centre of the
                 // cicles bounding the top and bottom of the cylinder.
     T.x = position.x;
     T.y = position.y + h / 2;
@@ -22,8 +24,8 @@ Hit Cylinder::intersect(Ray const& ray) {
     B.y = position.y - h / 2;
     B.x = position.z;
 
-    Vector H = B - T; // Direction of the vector starting at the top of 
-                      //the cylinder going to toward the bottom
+    Vector H = B - T;     // Direction of the vector starting at the top of
+                          // the cylinder going to toward the bottom
     Vector X = ray.O - T; // Direction of the vector going from the top
                           // of the cylinder to the eye position
 
@@ -33,15 +35,22 @@ Hit Cylinder::intersect(Ray const& ray) {
 
     double t0, t1;
 
-    if (not Solvers::quadratic(a, b, c, t0, t1)) return Hit::NO_HIT();
+    if (not Solvers::quadratic(a, b, c, t0, t1))
+    {
+        std::cout << "Couldn't solve quadratic\n";
+        return Hit::NO_HIT();
+    }
 
     // t0 is closest hit
-    if (t0 < 0.0)  // check if it is not behind the camera
-    {
-        t0 = t1;       // try t1
-        if (t0 < 0.0)  // both behind the camera
-            return Hit::NO_HIT();
-    }
+    // if (t0 < 0.0) // check if it is not behind the camera
+    // {
+    //     t0 = t1;      // try t1
+    //     if (t0 < 0.0) // both behind the camera
+    //     {
+    //         std::cout << "t0 < 0\n";
+    //         return Hit::NO_HIT();
+    //     }
+    // }
 
     Point hit = ray.at(t0);
     Vector N = (hit - position).normalized();
@@ -49,10 +58,12 @@ Hit Cylinder::intersect(Ray const& ray) {
     return Hit(t0, N);
 }
 
-//Point getPosition() {return pos;}
+// Point getPosition() {return pos;}
 
-Cylinder::Cylinder(Point const& pos, double radius, double const& height)
-    :  // Feel free to modify this constructor.
-    position(pos),
-    r(radius),
-    h(height) {}
+Cylinder::Cylinder(Point const &pos, double radius, double const &height)
+    : // Feel free to modify this constructor.
+      position(pos),
+      r(radius),
+      h(height)
+{
+}
