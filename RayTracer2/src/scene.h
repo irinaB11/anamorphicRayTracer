@@ -18,6 +18,12 @@ class Scene
   std::vector<ObjectPtr> objects;
   std::vector<LightPtr> lights;
 
+  struct intVector {
+    int x;
+    int y;
+    int z;
+  };
+
   Point eye;
 
   // Offset multiplier. Before casting a new ray from a hit point,

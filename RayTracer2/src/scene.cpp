@@ -53,7 +53,7 @@ void Scene::render(string const &filePath, string const &ofname)
   cout << "About to call unitize.\n";
   vector<Vertex> objectMesh = loadObject.unitize(filePath);
 
-  Point cubePosition(150.0, 0.0, 0.0); // figure out how to get position from pointer to obj
+  Point cubePosition(150.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
   Point cubePoint(0.0, 0.0, 0.0);
 
   // move cube mesh to the position given in the scene description
@@ -72,7 +72,7 @@ void Scene::render(string const &filePath, string const &ofname)
   Ray eyeToVertex(eye, direction);
   vector<Point> deformedCube;
 
-  for (int i = 0; i != objectMesh.size(); ++i)
+  for (int i = 0; i < objectMesh.size()/2; ++i)
   {
     // if (i == 1)
     // {
@@ -94,6 +94,16 @@ void Scene::render(string const &filePath, string const &ofname)
   {
     out << "v " << deformedCube[j].x << ' ' << deformedCube[j].y << ' ' << deformedCube[j].z << "\n";
   }
+
+  vector<Face> objectFaces = loadObject.getObjectFaces();
+  for (int i = 0; i != objectFaces.size()/2; i += 3)
+  {
+    // out << "f " << objectFaces[i].X << "/" << objectFaces[i].Y << "/" << objectFaces[i].Z << " "<<
+    //               objectFaces[i+1].X << "/" << objectFaces[i+1].Y << "/" << objectFaces[i+1].Z << " " <<
+    //               objectFaces[i+2].X << "/" << objectFaces[i+2].Y << "/" << objectFaces[i+2].Z << "\n";  
+    out << "f " << objectFaces[i].X << " " << objectFaces[i+1].X << " " << objectFaces[i+2].X << "\n";
+  }
+  
   out.close();
 }
 

@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "vertex.h"
+#include "face.h"
 
 class OBJLoader {
   bool d_hasTexCoords;
@@ -27,6 +28,7 @@ class OBJLoader {
   std::vector<vec3> d_coordinates;
   std::vector<vec3> d_normals;
   std::vector<vec2> d_texCoords;
+  std::vector<Face> faces;
 
   /**
    * @brief The Vertex struct
@@ -71,13 +73,15 @@ class OBJLoader {
    */
   std::vector<Vertex> unitize(std::string const& filename);
 
+  std::vector<Face> getObjectFaces();
+
  private:
   void parseFile(std::string const &filename);
   void parseLine(std::string const &line);
   void parseVertex(StringList const &tokens);
-  //void parseNormal(StringList const &tokens);
-  //void parseTexCoord(StringList const &tokens);
-  //void parseFace(StringList const &tokens);
+  void parseNormal(StringList const &tokens);
+  void parseTexCoord(StringList const &tokens);
+  void parseFace(StringList const &tokens);
 
   StringList split(std::string const &str, char splitChar, bool keepEmpty = true);
 };

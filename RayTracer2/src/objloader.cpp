@@ -26,7 +26,7 @@ OBJLoader::OBJLoader(string const &filename) : d_hasTexCoords(false) { parseFile
 vector<Vertex> OBJLoader::vertex_data() const
 {
   vector<Vertex> data;
-  float scaleFactor = 20; // the object is given in scale 1, so we scale it to 20
+  float scaleFactor = 10; // the object is given in scale 1, so we scale it to 20
 
   // For all vertices in the model, interleave the data
   for (vec3 const& coord : d_coordinates) {
@@ -39,13 +39,43 @@ vector<Vertex> OBJLoader::vertex_data() const
     vert.y = coord.y * scaleFactor;
     vert.z = coord.z * scaleFactor;
 
+  // For all vertices in the model, interleave the data
+  // for (Vertex_idx const &vertex : d_vertices) {
+  //   // Add coordinate data
+  //   Vertex vert;
+
+  //   vec3 const coord = d_coordinates.at(vertex.d_coord);
+  //   vert.x = coord.x;
+  //   vert.y = coord.y;
+  //   vert.z = coord.z;
+
+    // // Add normal data
+    // vec3 const norm = d_normals.at(vertex.d_norm);
+    // vert.nx = norm.x;
+    // vert.ny = norm.y;
+    // vert.nz = norm.z;
+
+    // // Add texture data (if available)
+    // if (d_hasTexCoords) {
+    //   vec2 const tex = d_texCoords.at(vertex.d_tex);
+    //   vert.u = tex.u;  // u coordinate
+    //   vert.v = tex.v;  // v coordinate
+    // } else {
+    //   vert.u = 0;
+    //   vert.v = 0;
+    // }
     data.push_back(vert);
   }
 
-  cout << "I have " << d_vertices.size() << " vertices :)\n";
-  cout << "I have " << d_coordinates.size() << " coords :)\n";
+
+  std::cout << "I have " << d_vertices.size() << " vertices :)\n";
+  std::cout << "I have " << d_coordinates.size() << " coords :)\n";
   return data; // copy elision
 }
+
+unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
+
+bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
 
 vector<Vertex> OBJLoader::unitize(string const &filename)
 {
@@ -74,15 +104,18 @@ void OBJLoader::parseFile(string const &filename)
 
 void OBJLoader::parseLine(string const &line)
 {
-  if (line[0] == '#')
-    return; // ignore comments
+  if (line[0] == '#') return;  // ignore comments
 
   StringList tokens = split(line, ' ', false);
 
   if (tokens[0] == "v")
     parseVertex(tokens);
-
-  // Other data is also ignored
+  // else if (tokens[0] == "vn")
+  //   parseNormal(tokens);
+  // else if (tokens[0] == "vt")
+  //   parseTexCoord(tokens);
+  else if (tokens[0] == "f")
+    parseFace(tokens);
 }
 
 void OBJLoader::parseVertex(StringList const &tokens)
@@ -92,6 +125,56 @@ void OBJLoader::parseVertex(StringList const &tokens)
   y = stof(tokens.at(2));
   z = stof(tokens.at(3));
   d_coordinates.push_back(vec3{x, y, z});
+}
+
+// void OBJLoader::parseNormal(StringList const &tokens) {
+//   float x, y, z;
+//   x = stof(tokens.at(1));  // 0 is the "vn" token
+//   y = stof(tokens.at(2));
+//   z = stof(tokens.at(3));
+//   d_normals.push_back(vec3{x, y, z});
+// }
+
+// void OBJLoader::parseTexCoord(StringList const &tokens) {
+//   d_hasTexCoords = true;  // Texture data will be read
+
+//   float u, v;
+//   u = stof(tokens.at(1));  // 0 is the "vt" token
+//   v = stof(tokens.at(2));
+//   d_texCoords.push_back(vec2{u, v});
+// }
+
+
+void OBJLoader::parseFace(StringList const &tokens) {
+  // skip the first token ("f")
+  for (size_t idx = 1; idx < tokens.size(); ++idx) {
+    // format is:
+    // <vertex idx + 1>/<texture idx +1>/<normal idx + 1>
+    // Wavefront .obj files start counting from 1 (yuck)
+
+    StringList elements = split(tokens.at(idx), '/');
+    Vertex_idx vertex{};  // initialize to zeros on all fields
+
+    //vertex.d_coord = stoul(elements.at(0)) - 1U;
+    int x = stoul(elements.at(0));
+
+    int y;
+    if (d_hasTexCoords) {
+      //vertex.d_tex = stoul(elements.at(1)) - 1U;
+      y = stoul(elements.at(1));
+    } else {
+      //vertex.d_tex = 0U;  // ignored
+      y = 0;
+    }
+
+    //vertex.d_norm = stoul(elements.at(2)) - 1U;
+    int z = stoul(elements.at(2));
+
+    Face faceVertex(x, y, z);
+
+    //d_vertices.push_back(vertex);
+    faces.push_back(faceVertex);
+  }
 }
 
 OBJLoader::StringList OBJLoader::split(string const &line, char splitChar, bool keepEmpty)
@@ -105,3 +188,5 @@ OBJLoader::StringList OBJLoader::split(string const &line, char splitChar, bool 
 
   return tokens;
 }
+
+vector<Face> OBJLoader::getObjectFaces () { return faces; } 
