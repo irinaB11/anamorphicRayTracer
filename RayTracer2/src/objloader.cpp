@@ -26,7 +26,7 @@ OBJLoader::OBJLoader(string const &filename) : d_hasTexCoords(false) { parseFile
 vector<Vertex> OBJLoader::vertex_data() const
 {
   vector<Vertex> data;
-  float scaleFactor = 10; // the object is given in scale 1, so we scale it to 20
+  float scaleFactor = 1; // the object is given in scale 1, so we scale it to 20
 
   // For all vertices in the model, interleave the data
   for (vec3 const& coord : d_coordinates) {

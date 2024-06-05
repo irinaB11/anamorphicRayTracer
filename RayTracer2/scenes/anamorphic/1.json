@@ -4,12 +4,12 @@
         {
             "type": "cylinder",
             "position": [0, 0, 0],
-            "radius": 80,
+            "radius": 20,
             "height": 200
         },
         {
             "type": "highVertexCube",
-            "position": [150, 0, 0]
+            "position": [30, 0, 0]
         }
     ]
 }
