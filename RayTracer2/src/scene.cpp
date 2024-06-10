@@ -9,10 +9,10 @@
 #include "hit.h"
 #include "image.h"
 #include "material.h"
-#include "objloader.h"
 #include "vertex.h"
 #include "ray.h"
 #include "shapes/cube.h"
+#include "objloader.h"
 
 using namespace std;
 
@@ -50,10 +50,10 @@ Point Scene::trace(Ray const &ray)
 void Scene::render(string const &filePath, string const &ofname)
 {
   OBJLoader loadObject(filePath);
-  cout << "About to call unitize.\n";
-  vector<Vertex> objectMesh = loadObject.unitize(filePath);
+  //cout << "About to call unitize.\n";
+  vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  Point cubePosition(150.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
+  Point cubePosition(30.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
   Point cubePoint(0.0, 0.0, 0.0);
 
   // move cube mesh to the position given in the scene description
@@ -72,7 +72,7 @@ void Scene::render(string const &filePath, string const &ofname)
   Ray eyeToVertex(eye, direction);
   vector<Point> deformedCube;
 
-  for (int i = 0; i < objectMesh.size()/2; ++i)
+  for (int i = 0; i < objectMesh.size(); ++i)
   {
     // if (i == 1)
     // {
@@ -95,14 +95,42 @@ void Scene::render(string const &filePath, string const &ofname)
     out << "v " << deformedCube[j].x << ' ' << deformedCube[j].y << ' ' << deformedCube[j].z << "\n";
   }
 
-  vector<Face> objectFaces = loadObject.getObjectFaces();
-  for (int i = 0; i != objectFaces.size()/2; i += 3)
-  {
-    // out << "f " << objectFaces[i].X << "/" << objectFaces[i].Y << "/" << objectFaces[i].Z << " "<<
-    //               objectFaces[i+1].X << "/" << objectFaces[i+1].Y << "/" << objectFaces[i+1].Z << " " <<
-    //               objectFaces[i+2].X << "/" << objectFaces[i+2].Y << "/" << objectFaces[i+2].Z << "\n";  
-    out << "f " << objectFaces[i].X << " " << objectFaces[i+1].X << " " << objectFaces[i+2].X << "\n";
+  //int numberOfFaces = loadObject.numTriangles();
+
+  // for (int i = 0; i != numberOfFaces; ++i) {
+  //   if ((loadObject.d_vertices)[i].d_tex == 0) {
+  //     out << "f " << loadObject.d_vertices[i*3+0].d_coord << "//" << loadObject.d_vertices[i*3+0].d_norm << " "
+  //                 << loadObject.d_vertices[i*3+1].d_coord << "//" << loadObject.d_vertices[i*3+1].d_norm << " "
+  //                 << loadObject.d_vertices[i*3+2].d_coord << "//" << loadObject.d_vertices[i*3+2].d_norm << "\n";
+  //   } else {
+  //     out << "f " << loadObject.d_vertices[i*3+0].d_coord << loadObject.d_vertices[i*3+0].d_tex << loadObject.d_vertices[i*3+0].d_norm << " "
+  //                 << loadObject.d_vertices[i*3+1].d_coord << loadObject.d_vertices[i*3+1].d_tex << loadObject.d_vertices[i*3+1].d_norm << " "
+  //                 << loadObject.d_vertices[i*3+2].d_coord << loadObject.d_vertices[i*3+2].d_tex << loadObject.d_vertices[i*3+2].d_norm << "\n";
+  //   }
+  // }
+
+  cout << "size of d_vertices in scene.cpp: " << loadObject.d_vertices.size() << "\n";
+  for (int i = 0; loadObject.d_vertices.size(); i += 3) {
+    if (loadObject.d_vertices[i].d_coord == 0) break;
+    if (loadObject.d_vertices[i].d_tex == 0) {
+      out << "f " << loadObject.d_vertices[i].d_coord << "//" << loadObject.d_vertices[i].d_norm << " "
+                  << loadObject.d_vertices[i+1].d_coord << "//" << loadObject.d_vertices[i+1].d_norm << " "
+                  << loadObject.d_vertices[i+2].d_coord << "//" << loadObject.d_vertices[i+2].d_norm << "\n";
+    } else {
+      out << "f " << loadObject.d_vertices[i].d_coord << loadObject.d_vertices[i].d_tex << loadObject.d_vertices[i].d_norm << " "
+                  << loadObject.d_vertices[i+1].d_coord << loadObject.d_vertices[i+1].d_tex << loadObject.d_vertices[i+1].d_norm << " "
+                  << loadObject.d_vertices[i+2].d_coord << loadObject.d_vertices[i+2].d_tex << loadObject.d_vertices[i+2].d_norm << "\n";
+    }
   }
+  //std::cout << "objectFaces size: " << objectFaces.size() << "\n";
+  //for (int i = 0; i != objectFaces.size(); i += 3)
+  // {
+  //   // out << "f " << objectFaces[i].X << "/" << objectFaces[i].Y << "/" << objectFaces[i].Z << " "<<
+  //   //               objectFaces[i+1].X << "/" << objectFaces[i+1].Y << "/" << objectFaces[i+1].Z << " " <<
+  //   //               objectFaces[i+2].X << "/" << objectFaces[i+2].Y << "/" << objectFaces[i+2].Z << "\n";  
+  //   out << "f " << objectFaces[i].X << " " << objectFaces[i+1].X << " " << objectFaces[i+2].X << "\n";
+  //   // << objectFaces[i+3].X << "\n"
+  // }
   
   out.close();
 }

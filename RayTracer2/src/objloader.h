@@ -14,23 +14,32 @@
 class OBJLoader {
   bool d_hasTexCoords;
 
+  //had vec3 here
+  struct vec2 {
+    float u;
+    float v;
+  };
+
+  //had d_coordinates and d_normals here
+  std::vector<vec2> d_texCoords;
+  std::vector<Face> faces;
+
+  //had d_vertices and Vertex_idx here
+
+  typedef std::vector<std::string> StringList;
+
+ public:
+
   struct vec3 {
     float x;
     float y;
     float z;
   };
 
-  struct vec2 {
-    float u;
-    float v;
-  };
-
   std::vector<vec3> d_coordinates;
   std::vector<vec3> d_normals;
-  std::vector<vec2> d_texCoords;
-  std::vector<Face> faces;
 
-  /**
+   /**
    * @brief The Vertex struct
    * Contains indices into the above
    * QVectors to be able to reconstruct
@@ -43,10 +52,6 @@ class OBJLoader {
   };
 
   std::vector<Vertex_idx> d_vertices;
-
-  typedef std::vector<std::string> StringList;
-
- public:
   /**
    * @brief OBJLoader
    * @param filename
