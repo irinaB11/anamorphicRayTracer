@@ -41,7 +41,7 @@ Hit Cylinder::intersect(Ray const &ray)
         return Hit::NO_HIT();
     }
 
-    // t0 is closest hit
+    //t0 is closest hit
     // if (t0 < 0.0) // check if it is not behind the camera
     // {
     //     t0 = t1;      // try t1
@@ -52,10 +52,11 @@ Hit Cylinder::intersect(Ray const &ray)
     //     }
     // }
 
-    Point hit = ray.at(t0);
+
+    Point hit = ray.at(t1);
     Vector N = (hit - position).normalized();
 
-    return Hit(t0, N);
+    return Hit(t1, N);
 }
 
 // Point getPosition() {return pos;}
