@@ -1,5 +1,5 @@
 {
-    "Eye": [-20, 30, 0],
+    "Eye": [10, -90, 0],
     "Objects": [
         {
             "type": "cylinder",
@@ -9,7 +9,7 @@
         },
         {
             "type": "highVertexCube",
-            "position": [100, 0, 0]
+            "position": [22, 0, 0]
         }
     ]
 }

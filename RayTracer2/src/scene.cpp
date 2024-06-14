@@ -78,7 +78,7 @@ void Scene::render(string const &filePath, string const &ofname)
   //cout << "About to call unitize.\n";
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  Point cubePosition(100.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
+  Point cubePosition(30.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
 
   // move cube mesh to the position given in the scene description
   cout << "move mesh based on object position.\n";
@@ -102,9 +102,12 @@ void Scene::render(string const &filePath, string const &ofname)
     // }
     Point cubePoint(objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
 
+    //Ray vertexToCylinder(cubePoint, ((-cubePoint.x, cubePoint.y, cubePoint.z) - cubePoint).normalized());
+
     Ray eyeToVertex(eye, cubePoint - eye);
 
     Point result = trace(eyeToVertex);
+    //Point result = trace(vertexToCylinder);
     deformedCube.push_back(result);   
   }
 
