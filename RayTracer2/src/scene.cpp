@@ -16,6 +16,31 @@
 
 using namespace std;
 
+void printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx> objectFaces, string const &ofname) {
+  // write deformed mesh to output file
+  ofstream out(ofname);
+  for (int j = 0; j != deformedObject.size(); ++j)
+  {
+    out << "v " << deformedObject[j].x << ' ' << deformedObject[j].y << ' ' << deformedObject[j].z << "\n";
+  }
+
+  cout << "size of d_vertices in scene.cpp: " << objectFaces.size() << "\n";
+  for (int i = 0; i < objectFaces.size(); i += 3) {
+    //if (objectFaces[i].d_coord == 0) break;
+   // if (objectFaces[i].d_tex == 0) {
+      out << "f " << objectFaces[i].d_coord << "//" << objectFaces[i].d_norm << " "
+                  << objectFaces[i+1].d_coord << "//" << objectFaces[i+1].d_norm << " "
+                  << objectFaces[i+2].d_coord << "//" << objectFaces[i+2].d_norm << "\n";
+    // } else {
+    //   out << "f " << objectFaces[i].d_coord << "/" << objectFaces[i].d_tex << "/" << objectFaces[i].d_norm << " "
+    //               << objectFaces[i+1].d_coord << "/" << objectFaces[i+1].d_tex << "/" << objectFaces[i+1].d_norm << " "
+    //               << objectFaces[i+2].d_coord << "/" << objectFaces.d_tex << "/" << objectFaces[i+2].d_norm << "\n";
+    // }
+  }
+  
+  out.close();
+}
+
 pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
 {
   // the first object in the scene is the mirror
@@ -36,7 +61,7 @@ Point Scene::trace(Ray const &ray)
 
   Point intersectionPoint = ray.at(intersection.t);
   //cout << "Point: " << intersectionPoint.x << ", " << intersectionPoint.y << ", " << intersectionPoint.z << '\n';
-  Vector L = ray.O - intersectionPoint;
+  Vector L = (ray.O - intersectionPoint).normalized();
 
   Vector reflectDir = reflect(L, intersection.N).normalized();
   //cout << "Reflect: " << reflectDir.x << ", " << reflectDir.y << ", " << reflectDir.z << '\n';
@@ -53,7 +78,7 @@ void Scene::render(string const &filePath, string const &ofname)
   //cout << "About to call unitize.\n";
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  Point cubePosition(7.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
+  Point cubePosition(100.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
 
   // move cube mesh to the position given in the scene description
   cout << "move mesh based on object position.\n";
@@ -67,8 +92,6 @@ void Scene::render(string const &filePath, string const &ofname)
     objectMesh[idx].z = objectMesh[idx].z + cubePosition.z;
   }
 
-  //Vector direction(0.0, 0.0, 0.0);
-  //Ray eyeToVertex(eye, direction); // should be renamed eye to direction of cylinder
   vector<Point> deformedCube;
 
   for (int i = 0; i < objectMesh.size(); ++i)
@@ -77,52 +100,15 @@ void Scene::render(string const &filePath, string const &ofname)
     // {
     //   break;
     // }
-
-    // orthographic view
-    Vector direction(-objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
     Point cubePoint(objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
-    Ray ray (cubePoint, direction.normalized());
 
-    Point result = trace(ray);
-    deformedCube.push_back(result);
+    Ray eyeToVertex(eye, cubePoint - eye);
+
+    Point result = trace(eyeToVertex);
+    deformedCube.push_back(result);   
   }
 
-  // write deformed mesh to output file
-  ofstream out(ofname);
-  for (int j = 0; j != deformedCube.size(); ++j)
-  {
-    out << "v " << deformedCube[j].x << ' ' << deformedCube[j].y << ' ' << deformedCube[j].z << "\n";
-  }
-
-  //int numberOfFaces = loadObject.numTriangles();
-
-  // for (int i = 0; i != numberOfFaces; ++i) {
-  //   if ((loadObject.d_vertices)[i].d_tex == 0) {
-  //     out << "f " << loadObject.d_vertices[i*3+0].d_coord << "//" << loadObject.d_vertices[i*3+0].d_norm << " "
-  //                 << loadObject.d_vertices[i*3+1].d_coord << "//" << loadObject.d_vertices[i*3+1].d_norm << " "
-  //                 << loadObject.d_vertices[i*3+2].d_coord << "//" << loadObject.d_vertices[i*3+2].d_norm << "\n";
-  //   } else {
-  //     out << "f " << loadObject.d_vertices[i*3+0].d_coord << loadObject.d_vertices[i*3+0].d_tex << loadObject.d_vertices[i*3+0].d_norm << " "
-  //                 << loadObject.d_vertices[i*3+1].d_coord << loadObject.d_vertices[i*3+1].d_tex << loadObject.d_vertices[i*3+1].d_norm << " "
-  //                 << loadObject.d_vertices[i*3+2].d_coord << loadObject.d_vertices[i*3+2].d_tex << loadObject.d_vertices[i*3+2].d_norm << "\n";
-  //   }
-  // }
-
-  cout << "size of d_vertices in scene.cpp: " << loadObject.d_vertices.size() << "\n";
-  for (int i = 0; i < loadObject.d_vertices.size(); i += 3) {
-    //if (loadObject.d_vertices[i].d_coord == 0) break;
-   // if (loadObject.d_vertices[i].d_tex == 0) {
-      out << "f " << loadObject.d_vertices[i].d_coord << "//" << loadObject.d_vertices[i].d_norm << " "
-                  << loadObject.d_vertices[i+1].d_coord << "//" << loadObject.d_vertices[i+1].d_norm << " "
-                  << loadObject.d_vertices[i+2].d_coord << "//" << loadObject.d_vertices[i+2].d_norm << "\n";
-    // } else {
-    //   out << "f " << loadObject.d_vertices[i].d_coord << "/" << loadObject.d_vertices[i].d_tex << "/" << loadObject.d_vertices[i].d_norm << " "
-    //               << loadObject.d_vertices[i+1].d_coord << "/" << loadObject.d_vertices[i+1].d_tex << "/" << loadObject.d_vertices[i+1].d_norm << " "
-    //               << loadObject.d_vertices[i+2].d_coord << "/" << loadObject.d_vertices[i+2].d_tex << "/" << loadObject.d_vertices[i+2].d_norm << "\n";
-    // }
-  }
-  
-  out.close();
+  printMeshToFile(deformedCube, loadObject.d_vertices, ofname);
 }
 
 // --- Misc functions ----------------------------------------------------------
