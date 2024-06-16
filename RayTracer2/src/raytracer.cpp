@@ -111,7 +111,7 @@ bool Raytracer::readScene(string const &ifname) try {
 
 void Raytracer::renderToFile(string const &ofname) {
   // TODO: the size may be a settings in your file
-  scene.render("../models/suzanne.obj", ofname);
+  scene.render("../models/highVertexCubeTriangle.obj", ofname);
   cout << "Writing object to " << ofname << "...\n";
   cout << "Done.\n";
 }

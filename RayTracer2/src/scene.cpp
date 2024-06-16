@@ -44,8 +44,16 @@ void printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx>
 pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
 {
   // the first object in the scene is the mirror
+  Hit min_hit(numeric_limits<double>::infinity(), Vector());
+  ObjectPtr obj = nullptr;
   Hit hit(objects[0]->intersect(ray));
-  return pair<ObjectPtr, Hit>(objects[0], hit);
+  if (hit.t < min_hit.t) {
+    min_hit = hit;
+    obj = objects[0];
+  }
+  
+ // Hit hit(objects[0]->intersect(ray));
+  return pair<ObjectPtr, Hit>(obj, hit);
 }
 
 // start point for ray is the eye. The ray ends in a cube vertex.
@@ -78,7 +86,7 @@ void Scene::render(string const &filePath, string const &ofname)
   //cout << "About to call unitize.\n";
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  Point cubePosition(30.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
+  Point cubePosition(20.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
 
   // move cube mesh to the position given in the scene description
   cout << "move mesh based on object position.\n";
