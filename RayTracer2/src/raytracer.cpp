@@ -55,8 +55,9 @@ bool Raytracer::parseObjectNode(json const &node) {
   } else if (node["type"] == "cylinder") {
       Point pos(node["position"]);
       double radius = node["radius"];
-      double height = node["height"];
-      obj = ObjectPtr(new Cylinder(pos, radius, height));
+      Point tPoint(node["topPoint"]);
+      Point bPoint(node["bottomPoint"]);
+      obj = ObjectPtr(new Cylinder(pos, radius, tPoint, bPoint));
       cout << "Parsing cylinder.\n";
   } else if (node["type"] == "highVertexCube") {
       Point pos(node["position"]);
@@ -111,7 +112,7 @@ bool Raytracer::readScene(string const &ifname) try {
 
 void Raytracer::renderToFile(string const &ofname) {
   // TODO: the size may be a settings in your file
-  scene.render("../models/highVertexCubeTriangle.obj", ofname);
+  scene.render("../models/rectangularCube.obj", ofname);
   cout << "Writing object to " << ofname << "...\n";
   cout << "Done.\n";
 }

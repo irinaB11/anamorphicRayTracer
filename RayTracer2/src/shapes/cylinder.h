@@ -7,7 +7,7 @@ class Cylinder : public Object {
 	double const PI = 3.14159265358979323846;
 
 public:
-	Cylinder(Point const& pos, double radius, double const& height);
+	Cylinder(Point const& pos, double radius, Point const& topPoint, Point const& bottomPoint);
 
 	//Point getPosition() override;
 
@@ -15,7 +15,8 @@ public:
 
 	Point const position;
 	double const r;
-	double const h;
+	Point const tPoint;
+	Point const bPoint;
 };
 
 #endif

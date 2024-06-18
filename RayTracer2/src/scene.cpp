@@ -28,9 +28,9 @@ void printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx>
   for (int i = 0; i < objectFaces.size(); i += 3) {
     //if (objectFaces[i].d_coord == 0) break;
    // if (objectFaces[i].d_tex == 0) {
-      out << "f " << objectFaces[i].d_coord << "//" << objectFaces[i].d_norm << " "
-                  << objectFaces[i+1].d_coord << "//" << objectFaces[i+1].d_norm << " "
-                  << objectFaces[i+2].d_coord << "//" << objectFaces[i+2].d_norm << "\n";
+      out << "f " << objectFaces[i].d_coord /*<< "//" << objectFaces[i].d_norm */<< " "
+                  << objectFaces[i+1].d_coord /*<< "//" << objectFaces[i+1].d_norm */<< " "
+                  << objectFaces[i+2].d_coord /*<< "//" << objectFaces[i+2].d_norm*/ << "\n";
     // } else {
     //   out << "f " << objectFaces[i].d_coord << "/" << objectFaces[i].d_tex << "/" << objectFaces[i].d_norm << " "
     //               << objectFaces[i+1].d_coord << "/" << objectFaces[i+1].d_tex << "/" << objectFaces[i+1].d_norm << " "
@@ -72,8 +72,10 @@ Point Scene::trace(Ray const &ray)
   Vector L = (ray.O - intersectionPoint).normalized();
 
   Vector reflectDir = reflect(L, intersection.N).normalized();
+  //Vector R = L - 2.0 * sin(PI * pow(20.0, 3)) * intersection.N.dot(L) * intersection.N;
   //cout << "Reflect: " << reflectDir.x << ", " << reflectDir.y << ", " << reflectDir.z << '\n';
 
+  //Point V = intersectionPoint + (ray.D - intersectionPoint).length() * R;
   Point V = intersectionPoint + (ray.D - intersectionPoint).length() * reflectDir;
   //cout << "V: " << V.x << ", " << V.y << ", " << V.z << '\n';
 
@@ -86,7 +88,7 @@ void Scene::render(string const &filePath, string const &ofname)
   //cout << "About to call unitize.\n";
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  Point cubePosition(20.0, 0.0, 0.0); // figure out how to get position from ObjectPtr
+  Point cubePosition(0.0, 30.0, 1.0); // figure out how to get position from ObjectPtr
 
   // move cube mesh to the position given in the scene description
   cout << "move mesh based on object position.\n";

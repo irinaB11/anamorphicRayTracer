@@ -8,26 +8,10 @@
 using namespace std;
 
 Hit Cylinder::intersect(Ray const &ray)
-{
-    // The eye is positioned at the centre of the cylinder.
-    // There is no rotation. The code should be adapted to take into
-    // consideration cases when the eye and the centre of the mirror
-    // do not have the same position.
+{   
+    Vector H = (tPoint - bPoint).normalized();
 
-    Point T, B; // The coordinates of the points at the centre of the
-                // cicles bounding the top and bottom of the cylinder.
-    T.x = position.x;
-    T.y = position.y + h / 2;
-    T.x = position.z;
-
-    B.x = position.x;
-    B.y = position.y - h / 2;
-    B.x = position.z;
-
-    Vector H = B - T;     // Direction of the vector starting at the top of
-                          // the cylinder going to toward the bottom
-    Vector X = ray.O - T; // Direction of the vector going from the top
-                          // of the cylinder to the eye position
+    Vector X = ray.O - bPoint;
 
     double a = ray.D.dot(ray.D) - ray.D.dot(H) * ray.D.dot(H);
     double b = 2.0 * (ray.D.dot(X) - ray.D.dot(H) * X.dot(H));
@@ -42,15 +26,15 @@ Hit Cylinder::intersect(Ray const &ray)
     }
 
     //t0 is closest hit
-    // if (t0 < 0.0) // check if it is not behind the camera
-    // {
-    //     t0 = t1;      // try t1
-    //     if (t0 < 0.0) // both behind the camera
-    //     {
-    //         std::cout << "t0 < 0\n";
-    //         return Hit::NO_HIT();
-    //     }
-    // }
+    if (t0 < 0.0) // check if it is not behind the camera
+    {
+        t0 = t1;      // try t1
+        if (t0 < 0.0) // both behind the camera
+        {
+            std::cout << "t0 < 0\n";
+            return Hit::NO_HIT();
+        }
+    }
 
 
     Point hit = ray.at(t1);
@@ -61,10 +45,11 @@ Hit Cylinder::intersect(Ray const &ray)
 
 // Point getPosition() {return pos;}
 
-Cylinder::Cylinder(Point const &pos, double radius, double const &height)
+Cylinder::Cylinder(Point const &pos, double radius, Point const& topPoint, Point const& bottomPoint)
     : // Feel free to modify this constructor.
       position(pos),
       r(radius),
-      h(height)
+      tPoint(topPoint),
+      bPoint(bottomPoint)
 {
 }

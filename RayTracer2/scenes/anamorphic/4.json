@@ -1,0 +1,16 @@
+{
+    "Eye": [0, -30, 15],
+    "Objects": [
+        {
+            "type": "cylinder",
+            "position": [0, 0, 10],
+            "radius": 10,
+            "topPoint": [0, 40, 10],
+            "bottomPoint": [0, 0, 10]
+        },
+        {
+            "type": "highVertexCube",
+            "position": [0, 30, 1]
+        }
+    ]
+}

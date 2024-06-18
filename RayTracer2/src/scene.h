@@ -31,6 +31,7 @@ class Scene
   // to prevent finding an intersection with the same object due to
   // floating point inaccuracies. This prevents shadow acne, among other problems.
   double const epsilon = 1E-3;
+  double const PI = 3.14159265358979323846;
 
 public:
   Scene();
