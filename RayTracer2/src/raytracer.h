@@ -16,7 +16,7 @@ class Raytracer {
 
  public:
   bool readScene(std::string const &ifname);
-  void renderToFile(std::string const &ofname);
+  void renderToFile(std::string const &ofname, std::string const &objFile);
 
  private:
   bool parseObjectNode(nlohmann::json const &node);

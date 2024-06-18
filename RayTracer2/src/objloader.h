@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "vertex.h"
-#include "face.h"
 
 class OBJLoader {
   bool d_hasTexCoords;
@@ -22,7 +21,6 @@ class OBJLoader {
 
   //had d_coordinates and d_normals here
   std::vector<vec2> d_texCoords;
-  std::vector<Face> faces;
 
   //had d_vertices and Vertex_idx here
 
@@ -77,8 +75,6 @@ class OBJLoader {
    * TODO: Implement this method yourself!
    */
   std::vector<Vertex> unitize(std::string const& filename);
-
-  std::vector<Face> getObjectFaces();
 
  private:
   void parseFile(std::string const &filename);

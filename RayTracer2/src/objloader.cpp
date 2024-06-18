@@ -196,5 +196,3 @@ OBJLoader::StringList OBJLoader::split(string const &line, char splitChar, bool 
 
   return tokens;
 }
-
-vector<Face> OBJLoader::getObjectFaces () { return faces; } 

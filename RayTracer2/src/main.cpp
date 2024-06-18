@@ -23,15 +23,18 @@ int main(int argc, char *argv[]) {
 
   // determine output name
   string ofname;
-  if (argc >= 3) {
-    ofname = argv[2];  // use the provided name
+  string objectFile;
+  if (argc >= 4) {
+    objectFile = argv[2];
+    ofname = argv[3];  // use the provided name
   } else {
+    objectFile = argv[2];
     ofname = argv[1];  // replace .json with .obj
     ofname.erase(ofname.begin() + ofname.find_last_of('.'), ofname.end());
     ofname += ".obj";
   }
 
-  raytracer.renderToFile(ofname);
+  raytracer.renderToFile(ofname, objectFile);
 
   return 0;
 }

@@ -1,8 +1,5 @@
 #include "raytracer.h"
 
-#include "image.h"
-#include "light.h"
-#include "material.h"
 #include "triple.h"
 
 // =============================================================================
@@ -110,9 +107,9 @@ bool Raytracer::readScene(string const &ifname) try {
   return false;
 }
 
-void Raytracer::renderToFile(string const &ofname) {
+void Raytracer::renderToFile(string const &ofname, string const &objFile) {
   // TODO: the size may be a settings in your file
-  scene.render("../models/rectangularCube.obj", ofname);
+  scene.render(objFile, ofname);
   cout << "Writing object to " << ofname << "...\n";
   cout << "Done.\n";
 }

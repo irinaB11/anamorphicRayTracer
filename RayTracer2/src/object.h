@@ -1,8 +1,6 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-#include "material.h"
-
 // not really needed here, but deriving classes may need them
 #include <memory>
 
@@ -15,8 +13,6 @@ typedef std::shared_ptr<Object> ObjectPtr;
 class Object
 {
 public:
-  Material material;
-
   //virtual Point getPosition() = 0; //implement in every derived class
 
   virtual ~Object() = default;

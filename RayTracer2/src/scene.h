@@ -4,7 +4,6 @@
 #include <utility>
 #include <vector>
 
-#include "light.h"
 #include "objloader.h"
 #include "object.h"
 #include "triple.h"
@@ -16,7 +15,6 @@ class Image;
 class Scene
 {
   std::vector<ObjectPtr> objects;
-  std::vector<LightPtr> lights;
 
   struct intVector {
     int x;

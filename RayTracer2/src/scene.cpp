@@ -7,8 +7,6 @@
 #include <limits>
 
 #include "hit.h"
-#include "image.h"
-#include "material.h"
 #include "vertex.h"
 #include "ray.h"
 #include "shapes/cube.h"
@@ -82,9 +80,9 @@ Point Scene::trace(Ray const &ray)
   return V;
 }
 
-void Scene::render(string const &filePath, string const &ofname)
+void Scene::render(string const &objFile, string const &ofname)
 {
-  OBJLoader loadObject(filePath);
+  OBJLoader loadObject(objFile);
   //cout << "About to call unitize.\n";
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
