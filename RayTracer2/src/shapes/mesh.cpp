@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "mesh.h"
 
 #include <cmath>
 
@@ -6,13 +6,13 @@
 
 using namespace std;
 
-Hit Cube::intersect(Ray const &ray) {
+Hit Mesh::intersect(Ray const &ray) {
 
   return Hit::NO_HIT();
 }
 
-//Point getPosition() {return position;}
+Point Mesh::getPosition() {return position;}
 
-Cube::Cube(Point const& pos)
+Mesh::Mesh(Point const& pos)
     :  // Feel free to modify this constructor.
     position(pos) {}

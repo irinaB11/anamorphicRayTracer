@@ -8,7 +8,7 @@
 
 #include "shapes/quad.h"
 #include "shapes/cylinder.h"
-#include "shapes/cube.h"
+#include "shapes/mesh.h"
 #include "shapes/sphere.h"
 
 // =============================================================================
@@ -56,11 +56,10 @@ bool Raytracer::parseObjectNode(json const &node) {
       Point bPoint(node["bottomPoint"]);
       obj = ObjectPtr(new Cylinder(pos, radius, tPoint, bPoint));
       cout << "Parsing cylinder.\n";
-  } else if (node["type"] == "highVertexCube") {
+  } else if (node["type"] == "mesh") {
       Point pos(node["position"]);
-      obj = ObjectPtr(new Cube(pos));
-      cout << "Parsing (highVertex)cube.\n";
-      //put in object loader to read cube data 
+      obj = ObjectPtr(new Mesh(pos));
+      cout << "Parsing object mesh.\n"; 
   } else {
     cerr << "Unknown object type: " << node["type"] << ".\n";
   }
@@ -71,8 +70,7 @@ bool Raytracer::parseObjectNode(json const &node) {
 
   if (!obj) return false;
 
-  // Parse material and add object to the scene
-  //obj->material = parseMaterialNode(node["material"]);
+  // Add object to the scene
   scene.addObject(obj);
   return true;
 }
@@ -108,7 +106,6 @@ bool Raytracer::readScene(string const &ifname) try {
 }
 
 void Raytracer::renderToFile(string const &ofname, string const &objFile) {
-  // TODO: the size may be a settings in your file
   scene.render(objFile, ofname);
   cout << "Writing object to " << ofname << "...\n";
   cout << "Done.\n";

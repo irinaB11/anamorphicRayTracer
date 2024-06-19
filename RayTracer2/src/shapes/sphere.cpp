@@ -49,7 +49,7 @@ Vector Sphere::toUV(Point const &hit) {
   return Vector(u, v, 0.0);
 }
 
-//Point getPosition() {return position;}
+Point Sphere::getPosition() {return position;}
 
 Sphere::Sphere(Point const &pos, double radius, Vector const &axis, double angle)
     :  // Feel free to modify this constructor.

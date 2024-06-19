@@ -17,7 +17,7 @@ class Sphere : public Object {
   Vector const axis;
   double const angle;
 
-  //Point getPosition() override;
+  Point getPosition() override;
 };
 
 #endif

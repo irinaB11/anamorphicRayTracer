@@ -29,9 +29,11 @@ int main(int argc, char *argv[]) {
     ofname = argv[3];  // use the provided name
   } else {
     objectFile = argv[2];
-    ofname = argv[1];  // replace .json with .obj
-    ofname.erase(ofname.begin() + ofname.find_last_of('.'), ofname.end());
-    ofname += ".obj";
+    string filePath = "../scenes/results";
+    ofname = objectFile;
+    ofname.erase(ofname.begin(), ofname.begin() + ofname.find_last_of('/'));
+    cout << "erased beginning: " << ofname << "\n";
+    ofname = filePath.append(ofname);
   }
 
   raytracer.renderToFile(ofname, objectFile);

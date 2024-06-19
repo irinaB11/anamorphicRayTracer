@@ -34,7 +34,7 @@ Vector Quad::toUV(Point const &hit) {
   return Vector(u, v, 0.0);
 }
 
-//Point getPosition() {Point point(0.0, 0.0, 0.0); return point;}
+Point Quad::getPosition() {Point point(0.0, 0.0, 0.0); return point;}
 
 Quad::Quad(Point const &v0, Point const &v1, Point const &v2, Point const &v3)
     : v0(v0), v1(v1), v2(v2), v3(v3), N((v1 - v0).cross(v3 - v0).normalized()) {}
