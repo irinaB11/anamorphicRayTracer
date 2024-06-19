@@ -51,6 +51,12 @@ public:
 
   Point getEye();
 
+  void printMeshToFile(std::vector<Point> deformedObject, std::vector<OBJLoader::Vertex_idx> objectFaces, std::string const &ofname);
+
+  void deformObject(std::vector<OBJLoader::vec3> &objMesh, std::vector<Point> &deformedObject);
+
+  void pointToScenePosition(std::vector<OBJLoader::vec3> &objMesh, Point posInScene);
+
 private:
   
 };

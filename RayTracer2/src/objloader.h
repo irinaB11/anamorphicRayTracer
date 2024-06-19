@@ -74,7 +74,7 @@ class OBJLoader {
    *
    * TODO: Implement this method yourself!
    */
-  std::vector<Vertex> unitize(std::string const& filename);
+  void unitize();
 
  private:
   void parseFile(std::string const &filename);

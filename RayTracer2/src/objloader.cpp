@@ -26,16 +26,6 @@ OBJLoader::OBJLoader(string const &filename) : d_hasTexCoords(false) { parseFile
 vector<Vertex> OBJLoader::vertex_data() const
 {
   vector<Vertex> data;
-  // For all vertices in the model, interleave the data
-  //for (vec3 const& coord : d_coordinates) {
-  // for (Vertex_idx const &vertex : d_vertices) {
-  //   vec3 const coord = d_coordinates.at(vertex.d_coord);
-  //   // Add coordinate data
-  //   Vertex vert;
-
-    // vert.x = coord.x;
-    // vert.y = coord.y;
-    // vert.z = coord.z;
 
   //For all vertices in the model, interleave the data
   std::cout << "I have " << d_vertices.size() << " vertices before loop:)\n";
@@ -66,7 +56,6 @@ vector<Vertex> OBJLoader::vertex_data() const
     data.push_back(vert);
   }
 
-
   std::cout << "I have " << d_vertices.size() << " vertices :)\n";
   std::cout << "I have " << d_normals.size() << " normals. \n";
   std::cout << "I have " << d_texCoords.size() << " texture coordinates. \n";
@@ -78,12 +67,37 @@ unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
 
 bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
 
-vector<Vertex> OBJLoader::unitize(string const &filename)
+void OBJLoader::unitize()
 {
-  // TODO: implement this yourself!
+  float minX = 0;
+  float maxX = 0;
+  float minY = 0;
+  float maxY = 0;
+  float minZ = 0;
+  float maxZ = 0;
 
-  //parseFile(filename);
-  //return vertex_data();
+  for (int i = 0; i < d_coordinates.size(); ++i) {
+    minX = min(minX, d_coordinates[i].x);
+    maxX = max(maxX, d_coordinates[i].x);
+    minY = min(minX, d_coordinates[i].y);
+    maxY = max(maxX, d_coordinates[i].y);
+    minZ = min(minX, d_coordinates[i].z);
+    maxZ = max(maxX, d_coordinates[i].z);
+  }
+
+  float offsetX = abs(maxX - minX);
+  float offsetY = abs(maxY - minY);
+  float offsetZ = abs(maxZ - minZ);
+
+  if (offsetX != 0 && offsetY != 0 && offsetZ != 0) {
+    for (int idx = 0; idx < d_coordinates.size(); idx++)
+    {
+      d_coordinates[idx].x *= offsetX;
+      d_coordinates[idx].y *= offsetY;
+      d_coordinates[idx].z *= offsetZ;
+    }
+    cout << "Object mesh has been scaled. \n";
+  }
 }
 
 // --- Private -------------------------------------------------------

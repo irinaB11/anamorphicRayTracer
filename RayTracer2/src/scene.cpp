@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx> objectFaces, string const &ofname)
+void Scene::printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx> objectFaces, string const &ofname)
 {
   // write deformed mesh to output file
   ofstream out(ofname);
@@ -74,6 +74,37 @@ Point Scene::trace(Ray const &ray)
   return V;
 }
 
+void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deformedObject) {
+  for (int i = 0; i < objMesh.size(); ++i)
+  {
+    // if (i == 1)
+    // {
+    //   break;
+    // }
+    Point objectPoint(objMesh[i].x, objMesh[i].y, objMesh[i].z);
+
+    Ray eyeToVertex(eye, objectPoint - eye);
+
+    Point result = trace(eyeToVertex);
+
+    deformedObject.push_back(result);
+  }
+}
+
+void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
+  // move cube mesh to the position given in the scene description
+  cout << "move mesh based on object position.\n";
+  for (int idx = 0; idx != objMesh.size(); ++idx)
+  {
+    // cout << "objectMesh.x = " << objectMesh[idx].x << "\n";
+    // cout << "objectMesh.y = " << objectMesh[idx].y << "\n";
+    // cout << "objectMesh.z = " << objectMesh[idx].z << "\n";
+    objMesh[idx].x = objMesh[idx].x + posInScene.x;
+    objMesh[idx].y = objMesh[idx].y + posInScene.y;
+    objMesh[idx].z = objMesh[idx].z + posInScene.z;
+  }
+}
+
 void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);
@@ -83,34 +114,11 @@ void Scene::render(string const &objFile, string const &ofname)
   Point objectOrigin = objects[1].get()->getPosition();
   cout << "Object Origin: " << objectOrigin.x << ", " << objectOrigin.y << ", " << objectOrigin.z << "\n";
 
-  // move cube mesh to the position given in the scene description
-  cout << "move mesh based on object position.\n";
-  for (int idx = 0; idx != objectMesh.size(); ++idx)
-  {
-    // cout << "objectMesh.x = " << objectMesh[idx].x << "\n";
-    // cout << "objectMesh.y = " << objectMesh[idx].y << "\n";
-    // cout << "objectMesh.z = " << objectMesh[idx].z << "\n";
-    objectMesh[idx].x = objectMesh[idx].x + objectOrigin.x;
-    objectMesh[idx].y = objectMesh[idx].y + objectOrigin.y;
-    objectMesh[idx].z = objectMesh[idx].z + objectOrigin.z;
-  }
+  pointToScenePosition(objectMesh, objectOrigin);
 
   vector<Point> deformedObject;
 
-  for (int i = 0; i < objectMesh.size(); ++i)
-  {
-    // if (i == 1)
-    // {
-    //   break;
-    // }
-    Point objectPoint(objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
-
-    Ray eyeToVertex(eye, objectPoint - eye);
-
-    Point result = trace(eyeToVertex);
-
-    deformedObject.push_back(result);
-  }
+  deformObject(objectMesh, deformedObject);
 
   printMeshToFile(deformedObject, loadObject.d_vertices, ofname);
 }
