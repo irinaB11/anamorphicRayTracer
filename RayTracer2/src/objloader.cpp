@@ -67,6 +67,10 @@ unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
 
 bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
 
+// void translateMesh(Point translation) {
+
+// }
+
 void OBJLoader::unitize()
 {
   float minX = 0;
