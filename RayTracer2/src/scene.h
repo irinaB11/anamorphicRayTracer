@@ -57,6 +57,8 @@ public:
 
   void pointToScenePosition(std::vector<OBJLoader::vec3> &objMesh, Point posInScene);
 
+  void translateDeformedObject(std::vector<Point> &object, Point newPosition);
+
 private:
   
 };

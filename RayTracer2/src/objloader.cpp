@@ -89,19 +89,31 @@ void OBJLoader::unitize()
     maxZ = max(maxX, d_coordinates[i].z);
   }
 
+  cout << "minX: " << minX << "\n";
+  cout << "maxX: " << maxX << "\n";
+  cout << "minY: " << minY << "\n";
+  cout << "maxY: " << maxY << "\n";
+  cout << "minZ: " << minZ << "\n";
+  cout << "maxZ: " << maxZ << "\n";
+
   float offsetX = abs(maxX - minX);
   float offsetY = abs(maxY - minY);
   float offsetZ = abs(maxZ - minZ);
 
+  cout << "offsetX: " << offsetX << "\n";
+  cout << "offsetY: " << offsetY << "\n";
+  cout << "offsetZ: " << offsetZ << "\n";
+
   if (offsetX != 0 && offsetY != 0 && offsetZ != 0) {
     for (int idx = 0; idx < d_coordinates.size(); idx++)
     {
-      d_coordinates[idx].x *= offsetX;
-      d_coordinates[idx].y *= offsetY;
-      d_coordinates[idx].z *= offsetZ;
+      d_coordinates[idx].x /= offsetX;
+      d_coordinates[idx].y /= offsetY;
+      d_coordinates[idx].z /= offsetZ;
     }
     cout << "Object mesh has been scaled. \n";
   }
+  //cout << "d_coordinates[0]: " << d_coordinates[0].x << "/" << d_coordinates[0].y << "/" << d_coordinates[0].z << "\n";
 }
 
 // --- Private -------------------------------------------------------

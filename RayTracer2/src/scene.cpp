@@ -103,13 +103,32 @@ void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInSc
     objMesh[idx].y = objMesh[idx].y + posInScene.y;
     objMesh[idx].z = objMesh[idx].z + posInScene.z;
   }
+  cout << "object Point after translation: " << objMesh[0].x << " / " << objMesh[0].y << " / " << objMesh[0].z << "\n";
+}
+
+void Scene::translateDeformedObject(vector<Point> &object, Point newPosition) {
+  for (int i = 0; i < object.size(); ++i) {
+    object[i].x += newPosition.x;
+    object[i].y += newPosition.y;
+    object[i].z += newPosition.z;
+  }
 }
 
 void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);
-  // cout << "About to call unitize.\n";
+  cout << "About to call unitize.\n";
+  //loadObject.unitize();
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
+
+  //test
+  // vector<Point> unitizeTest;
+  // for (int i = 0; i < objectMesh.size(); ++i)
+  // {
+  //   Point objectPoint(objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
+  //   unitizeTest.push_back(objectPoint);
+  // }
+  // printMeshToFile(unitizeTest, loadObject.d_vertices, "../scenes/results/unitest.obj");
 
   Point objectOrigin = objects[1].get()->getPosition();
   cout << "Object Origin: " << objectOrigin.x << ", " << objectOrigin.y << ", " << objectOrigin.z << "\n";
@@ -119,6 +138,11 @@ void Scene::render(string const &objFile, string const &ofname)
   vector<Point> deformedObject;
 
   deformObject(objectMesh, deformedObject);
+
+  //move so that deformed object is across the mirror from original object
+  cout << "cube point position before relocation: " << deformedObject[0].x << "/" << deformedObject[0].y << "/" << deformedObject[0].z << "\n";
+  Point newPosition(objectOrigin.x, -objectOrigin.y, objectOrigin.z);
+  translateDeformedObject(deformedObject, newPosition);
 
   printMeshToFile(deformedObject, loadObject.d_vertices, ofname);
 }
