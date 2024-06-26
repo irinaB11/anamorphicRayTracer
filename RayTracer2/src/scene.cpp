@@ -141,7 +141,12 @@ void Scene::render(string const &objFile, string const &ofname)
 
   //move so that deformed object is across the mirror from original object
   cout << "cube point position before relocation: " << deformedObject[0].x << "/" << deformedObject[0].y << "/" << deformedObject[0].z << "\n";
-  Point newPosition(objectOrigin.x, -objectOrigin.y, objectOrigin.z);
+  //translate to origin of system
+  Point toOrigin(-deformedObject[0].x, -deformedObject[0].y, -deformedObject[0].z);
+  translateDeformedObject(deformedObject, toOrigin);
+  
+  //translate to position in scene
+  Point newPosition(objectOrigin.x, objectOrigin.y, -objectOrigin.z);
   translateDeformedObject(deformedObject, newPosition);
 
   printMeshToFile(deformedObject, loadObject.d_vertices, ofname);
