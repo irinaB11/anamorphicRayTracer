@@ -113,7 +113,7 @@ void OBJLoader::unitize()
     }
     cout << "Object mesh has been scaled. \n";
   }
-  //cout << "d_coordinates[0]: " << d_coordinates[0].x << "/" << d_coordinates[0].y << "/" << d_coordinates[0].z << "\n";
+  // cout << "d_coordinates[0]: " << d_coordinates[0].x << "/" << d_coordinates[0].y << "/" << d_coordinates[0].z << "\n";
 }
 
 // --- Private -------------------------------------------------------
