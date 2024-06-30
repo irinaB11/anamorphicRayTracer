@@ -89,20 +89,20 @@ void OBJLoader::unitize()
     maxZ = max(maxX, d_coordinates[i].z);
   }
 
-  cout << "minX: " << minX << "\n";
-  cout << "maxX: " << maxX << "\n";
-  cout << "minY: " << minY << "\n";
-  cout << "maxY: " << maxY << "\n";
-  cout << "minZ: " << minZ << "\n";
-  cout << "maxZ: " << maxZ << "\n";
+  // cout << "minX: " << minX << "\n";
+  // cout << "maxX: " << maxX << "\n";
+  // cout << "minY: " << minY << "\n";
+  // cout << "maxY: " << maxY << "\n";
+  // cout << "minZ: " << minZ << "\n";
+  // cout << "maxZ: " << maxZ << "\n";
 
   float offsetX = abs(maxX - minX);
   float offsetY = abs(maxY - minY);
   float offsetZ = abs(maxZ - minZ);
 
-  cout << "offsetX: " << offsetX << "\n";
-  cout << "offsetY: " << offsetY << "\n";
-  cout << "offsetZ: " << offsetZ << "\n";
+  // cout << "offsetX: " << offsetX << "\n";
+  // cout << "offsetY: " << offsetY << "\n";
+  // cout << "offsetZ: " << offsetZ << "\n";
 
   if (offsetX != 0 && offsetY != 0 && offsetZ != 0) {
     for (int idx = 0; idx < d_coordinates.size(); idx++)

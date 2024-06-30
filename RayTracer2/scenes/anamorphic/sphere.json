@@ -1,0 +1,14 @@
+{
+    "Eye": [0, 1.137, -6.648],
+    "Objects": [
+        {
+            "type": "sphere",
+            "position": [0, 1.9, 0],
+            "radius": 4
+        },
+        {
+            "type": "mesh",
+            "position": [0, -0.15, 3.01]
+        }
+    ]
+}

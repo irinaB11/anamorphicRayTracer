@@ -24,16 +24,26 @@ int main(int argc, char *argv[]) {
   // determine output name
   string ofname;
   string objectFile;
+  string sceneFile;
   if (argc >= 4) {
     objectFile = argv[2];
     ofname = argv[3];  // use the provided name
   } else {
     objectFile = argv[2];
+    sceneFile = argv[1];
+    sceneFile.erase(sceneFile.begin() + sceneFile.find_last_of('.'), sceneFile.end());
+    sceneFile.erase(sceneFile.begin(), sceneFile.begin() + sceneFile.find_last_of('/'));
+    //cout << "scene file: " << sceneFile << "\n";
     string filePath = "../scenes/results";
     ofname = objectFile;
+    ofname.erase(ofname.begin() + ofname.find_last_of('.'), ofname.end());
+    //cout << "end erased: " << ofname << "\n";
     ofname.erase(ofname.begin(), ofname.begin() + ofname.find_last_of('/'));
-    cout << "erased beginning: " << ofname << "\n";
-    ofname = filePath.append(ofname);
+    //cout << "erased beginning: " << ofname << "\n";
+    ofname = (filePath + ofname).append(sceneFile, 1, 4) + ".obj";
+    cout << ofname << "\n";
+    // ofname = ofname.append(sceneFile);
+    // ofname += ".obj";
   }
 
   raytracer.renderToFile(ofname, objectFile);

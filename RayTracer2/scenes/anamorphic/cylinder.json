@@ -1,0 +1,16 @@
+{
+    "Eye": [0, 1.137, -6.648],
+    "Objects": [
+        {
+            "type": "cylinder",
+            "position": [0, 1.9, 0],
+            "radius": 4,
+            "topPoint": [0, 3.4, 0],
+            "bottomPoint": [0, 0.4, 0]
+        },
+        {
+            "type": "mesh",
+            "position": [0, -0.15, 3.01]
+        }
+    ]
+}
