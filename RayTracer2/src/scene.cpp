@@ -118,7 +118,7 @@ void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);
   cout << "About to call unitize.\n";
-  loadObject.unitize();
+  //loadObject.unitize();
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
   //test

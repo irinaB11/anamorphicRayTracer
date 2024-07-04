@@ -79,6 +79,9 @@ void OBJLoader::unitize()
   float maxY = 0;
   float minZ = 0;
   float maxZ = 0;
+  // float xSum = 0;
+  // float ySum = 0;
+  // float zSum = 0;
 
   for (int i = 0; i < d_coordinates.size(); ++i) {
     minX = min(minX, d_coordinates[i].x);
@@ -87,7 +90,12 @@ void OBJLoader::unitize()
     maxY = max(maxX, d_coordinates[i].y);
     minZ = min(minX, d_coordinates[i].z);
     maxZ = max(maxX, d_coordinates[i].z);
+    // xSum += d_coordinates[i].x;
+    // ySum += d_coordinates[i].y;
+    // zSum += d_coordinates[i].z;
   }
+
+  //cout << "centre of volume: " << xSum/d_coordinates.size() << "/" << ySum/d_coordinates.size() << "/" << zSum/d_coordinates.size() << "\n";
 
   // cout << "minX: " << minX << "\n";
   // cout << "maxX: " << maxX << "\n";
