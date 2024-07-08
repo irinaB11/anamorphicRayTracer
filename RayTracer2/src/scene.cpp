@@ -63,7 +63,7 @@ Point Scene::trace(Ray const &ray)
   // cout << "Point: " << intersectionPoint.x << ", " << intersectionPoint.y << ", " << intersectionPoint.z << '\n';
   Vector L = (ray.O - intersectionPoint).normalized();
 
-  Vector reflectDir = reflect(L, intersection.N).normalized();
+  Vector reflectDir = - reflect(L, intersection.N).normalized();
   // Vector R = L - 2.0 * sin(PI * pow(20.0, 3)) * intersection.N.dot(L) * intersection.N;
   // cout << "Reflect: " << reflectDir.x << ", " << reflectDir.y << ", " << reflectDir.z << '\n';
 
@@ -89,6 +89,13 @@ void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deform
 
     deformedObject.push_back(result);
   }
+  // Point objectPoint(objMesh[0].x, objMesh[0].y, objMesh[0].z);
+  // Ray eyeToVertex(eye, objectPoint - eye);
+  // Point result = trace(eyeToVertex);
+  // pair<ObjectPtr, Hit> hit = castRay(eyeToVertex);
+  // ObjectPtr obj = hit.first;
+  // Hit intersection = hit.second;
+  // cout << "Normal: " << intersection.N.x << "/" << intersection.N.y << "/" << intersection.N.z << "\n";
 }
 
 void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
