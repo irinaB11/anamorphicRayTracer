@@ -5,10 +5,12 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   cout << "Computer Graphics - Ray tracer\n\n";
 
-  if (argc < 2 || argc > 3) {
+  if (argc < 2 || argc > 3)
+  {
     cerr << "Usage: " << argv[0] << " in-file [out-file.png]\n";
     return 1;
   }
@@ -16,7 +18,8 @@ int main(int argc, char *argv[]) {
   Raytracer raytracer;
 
   // read the scene
-  if (!raytracer.readScene(argv[1])) {
+  if (!raytracer.readScene(argv[1]))
+  {
     cerr << "Error: reading scene from " << argv[1] << " failed - no output generated.\n";
     return 1;
   }
@@ -25,27 +28,20 @@ int main(int argc, char *argv[]) {
   string ofname;
   string objectFile;
   string sceneFile;
-  if (argc >= 4) {
-    objectFile = argv[2];
-    ofname = argv[3];  // use the provided name
-  } else {
-    objectFile = argv[2];
-    sceneFile = argv[1];
-    sceneFile.erase(sceneFile.begin() + sceneFile.find_last_of('.'), sceneFile.end());
-    sceneFile.erase(sceneFile.begin(), sceneFile.begin() + sceneFile.find_last_of('/'));
-    //cout << "scene file: " << sceneFile << "\n";
-    string filePath = "../scenes/results";
-    ofname = objectFile;
-    ofname.erase(ofname.begin() + ofname.find_last_of('.'), ofname.end());
-    //cout << "end erased: " << ofname << "\n";
-    ofname.erase(ofname.begin(), ofname.begin() + ofname.find_last_of('/'));
-    //cout << "erased beginning: " << ofname << "\n";
-    ofname = (filePath + ofname).append(sceneFile, 1, 4) + ".obj";
-    cout << ofname << "\n";
-    // ofname = ofname.append(sceneFile);
-    // ofname += ".obj";
-  }
+  objectFile = argv[2];
+  sceneFile = argv[1];
+  sceneFile.erase(sceneFile.begin() + sceneFile.find_last_of('.'), sceneFile.end());
+  cout << "sceneFile1 " << sceneFile << "\n";
+  sceneFile.erase(sceneFile.begin() + sceneFile.find_first_of('/'), sceneFile.begin() + sceneFile.find_last_of('/'));
+  cout << "sceneFile2 " << sceneFile << "\n";
+  string filePath = "../results";
+  ofname = objectFile;
+  ofname.erase(ofname.begin() + ofname.find_last_of('.'), ofname.end());
+  ofname.erase(ofname.begin(), ofname.begin() + ofname.find_last_of('/'));
+  cout << "ofname " << ofname << "\n";
+  ofname = (filePath + ofname).append(sceneFile, 1, 2) + ".obj";
 
+  // write points' coordinates and faces of new object to file "ofname"
   raytracer.renderToFile(ofname, objectFile);
 
   return 0;

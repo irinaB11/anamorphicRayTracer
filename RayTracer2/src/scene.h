@@ -10,7 +10,6 @@
 
 // Forward declarations
 class Ray;
-class Image;
 
 class Scene
 {
@@ -37,10 +36,10 @@ public:
   // determine closest hit (if any)
   std::pair<ObjectPtr, Hit> castRay(Ray const &ray) const;
 
-  // trace a ray into the scene and return the color
+  // trace a ray into the scene and the point of the deformed object
   Point trace(Ray const &ray);
 
-  // render the scene to the given image
+  // render object the given file
   void render(std::string const &filePath, std::string const &ofname);
 
   void addObject(ObjectPtr obj);

@@ -56,20 +56,12 @@ vector<Vertex> OBJLoader::vertex_data() const
     data.push_back(vert);
   }
 
-  std::cout << "I have " << d_vertices.size() << " vertices :)\n";
-  std::cout << "I have " << d_normals.size() << " normals. \n";
-  std::cout << "I have " << d_texCoords.size() << " texture coordinates. \n";
-  std::cout << "I have " << d_coordinates.size() << " coords :)\n";
   return data; // copy elision
 }
 
 unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
 
 bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
-
-// void translateMesh(Point translation) {
-
-// }
 
 void OBJLoader::unitize()
 {
@@ -79,9 +71,6 @@ void OBJLoader::unitize()
   float maxY = 0;
   float minZ = 0;
   float maxZ = 0;
-  // float xSum = 0;
-  // float ySum = 0;
-  // float zSum = 0;
 
   for (int i = 0; i < d_coordinates.size(); ++i) {
     minX = min(minX, d_coordinates[i].x);
@@ -90,27 +79,11 @@ void OBJLoader::unitize()
     maxY = max(maxX, d_coordinates[i].y);
     minZ = min(minX, d_coordinates[i].z);
     maxZ = max(maxX, d_coordinates[i].z);
-    // xSum += d_coordinates[i].x;
-    // ySum += d_coordinates[i].y;
-    // zSum += d_coordinates[i].z;
   }
-
-  //cout << "centre of volume: " << xSum/d_coordinates.size() << "/" << ySum/d_coordinates.size() << "/" << zSum/d_coordinates.size() << "\n";
-
-  // cout << "minX: " << minX << "\n";
-  // cout << "maxX: " << maxX << "\n";
-  // cout << "minY: " << minY << "\n";
-  // cout << "maxY: " << maxY << "\n";
-  // cout << "minZ: " << minZ << "\n";
-  // cout << "maxZ: " << maxZ << "\n";
 
   float offsetX = abs(maxX - minX);
   float offsetY = abs(maxY - minY);
   float offsetZ = abs(maxZ - minZ);
-
-  // cout << "offsetX: " << offsetX << "\n";
-  // cout << "offsetY: " << offsetY << "\n";
-  // cout << "offsetZ: " << offsetZ << "\n";
 
   if (offsetX != 0 && offsetY != 0 && offsetZ != 0) {
     for (int idx = 0; idx < d_coordinates.size(); idx++)
@@ -121,7 +94,6 @@ void OBJLoader::unitize()
     }
     cout << "Object mesh has been scaled. \n";
   }
-  // cout << "d_coordinates[0]: " << d_coordinates[0].x << "/" << d_coordinates[0].y << "/" << d_coordinates[0].z << "\n";
 }
 
 // --- Private -------------------------------------------------------
@@ -164,7 +136,6 @@ void OBJLoader::parseVertex(StringList const &tokens)
   y = stof(tokens.at(2));
   z = stof(tokens.at(3));
   d_coordinates.push_back(vec3{x, y, z});
-  //std::cout << "vertex: " << x << " " << y << " " << z << "\n";
 }
 
 void OBJLoader::parseNormal(StringList const &tokens) {
@@ -173,7 +144,6 @@ void OBJLoader::parseNormal(StringList const &tokens) {
   y = stof(tokens.at(2));
   z = stof(tokens.at(3));
   d_normals.push_back(vec3{x, y, z});
-  //std::cout << "normals: " << x << " " << y << " " << z << "\n";
 }
 
 void OBJLoader::parseTexCoord(StringList const &tokens) {
@@ -197,30 +167,17 @@ void OBJLoader::parseFace(StringList const &tokens) {
     Vertex_idx vertex{};  // initialize to zeros on all fields
 
     vertex.d_coord = stoul(elements.at(0)); //used to be -1U
-    //int x = stoul(elements.at(0));
 
-    //int y;
     if (d_hasTexCoords) {
       vertex.d_tex = stoul(elements.at(1)); //used to be -1U
-      //y = stoul(elements.at(1));
     } else {
       vertex.d_tex = 0U;  // ignored
-      //y = 0;
     }
 
     vertex.d_norm = stoul(elements.at(2)); //used to be -1U
-    //int z = stoul(elements.at(2));
-
-    //Face faceVertex(x, y, z);
 
     d_vertices.push_back(vertex);
-    //faces.push_back(faceVertex);
-
-    // std::cout << "coord: " << vertex.d_coord << "\n";
-    // std::cout << "texture: " << vertex.d_tex << "\n";
-    // std::cout << "norm: " << vertex.d_norm << "\n";
   }
-  //std::cout << "I have " << d_vertices.size() << " vertices in parseFace.\n";
 }
 
 OBJLoader::StringList OBJLoader::split(string const &line, char splitChar, bool keepEmpty)

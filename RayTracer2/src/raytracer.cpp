@@ -1,5 +1,4 @@
 #include "raytracer.h"
-
 #include "triple.h"
 
 // =============================================================================
@@ -104,6 +103,7 @@ bool Raytracer::readScene(string const &ifname) try {
   cerr << ex.what() << '\n';
   return false;
 }
+
 
 void Raytracer::renderToFile(string const &ofname, string const &objFile) {
   scene.render(objFile, ofname);

@@ -51,25 +51,17 @@ pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
 // start point for ray is the eye. The ray ends in a cube vertex.
 Point Scene::trace(Ray const &ray)
 {
-  // cout << "Ray O: " << ray.O.x << ", " << ray.O.y << ", " << ray.O.z << '\n';
-  // cout << "Ray D: " << ray.D.x << ", " << ray.D.y << ", " << ray.D.z << '\n';
-
   pair<ObjectPtr, Hit> hit = castRay(ray);
   ObjectPtr obj = hit.first;
   Hit intersection = hit.second;
-  // cout << "Hit: " << intersection.t << " and " << intersection.N.x << ", " << intersection.N.y << ", " << intersection.N.z << '\n';
 
   Point intersectionPoint = ray.at(intersection.t);
-  // cout << "Point: " << intersectionPoint.x << ", " << intersectionPoint.y << ", " << intersectionPoint.z << '\n';
+
   Vector L = (ray.O - intersectionPoint).normalized();
 
-  Vector reflectDir = - reflect(L, intersection.N).normalized();
-  // Vector R = L - 2.0 * sin(PI * pow(20.0, 3)) * intersection.N.dot(L) * intersection.N;
-  // cout << "Reflect: " << reflectDir.x << ", " << reflectDir.y << ", " << reflectDir.z << '\n';
+  Vector reflectDir = reflect(L, intersection.N).normalized();
 
-  // Point V = intersectionPoint + (ray.D - intersectionPoint).length() * R;
   Point V = intersectionPoint + (ray.D - intersectionPoint).length() * reflectDir;
-  // cout << "V: " << V.x << ", " << V.y << ", " << V.z << '\n';
 
   return V;
 }
@@ -77,10 +69,6 @@ Point Scene::trace(Ray const &ray)
 void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deformedObject) {
   for (int i = 0; i < objMesh.size(); ++i)
   {
-    // if (i == 1)
-    // {
-    //   break;
-    // }
     Point objectPoint(objMesh[i].x, objMesh[i].y, objMesh[i].z);
 
     Ray eyeToVertex(eye, objectPoint - eye);
@@ -89,28 +77,17 @@ void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deform
 
     deformedObject.push_back(result);
   }
-  // Point objectPoint(objMesh[0].x, objMesh[0].y, objMesh[0].z);
-  // Ray eyeToVertex(eye, objectPoint - eye);
-  // Point result = trace(eyeToVertex);
-  // pair<ObjectPtr, Hit> hit = castRay(eyeToVertex);
-  // ObjectPtr obj = hit.first;
-  // Hit intersection = hit.second;
-  // cout << "Normal: " << intersection.N.x << "/" << intersection.N.y << "/" << intersection.N.z << "\n";
 }
 
+// move cube mesh to the position given in the scene description
 void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
-  // move cube mesh to the position given in the scene description
   cout << "move mesh based on object position.\n";
   for (int idx = 0; idx != objMesh.size(); ++idx)
   {
-    // cout << "objectMesh.x = " << objectMesh[idx].x << "\n";
-    // cout << "objectMesh.y = " << objectMesh[idx].y << "\n";
-    // cout << "objectMesh.z = " << objectMesh[idx].z << "\n";
     objMesh[idx].x = objMesh[idx].x + posInScene.x;
     objMesh[idx].y = objMesh[idx].y + posInScene.y;
     objMesh[idx].z = objMesh[idx].z + posInScene.z;
   }
-  cout << "object Point after translation: " << objMesh[0].x << " / " << objMesh[0].y << " / " << objMesh[0].z << "\n";
 }
 
 void Scene::translateDeformedObject(vector<Point> &object, Point newPosition) {

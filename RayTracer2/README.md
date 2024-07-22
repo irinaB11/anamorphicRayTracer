@@ -4,6 +4,8 @@ This is a C++ framework for a ray tracer. It was created for the Computing Scien
 
 This framework is inspired by and uses (some) code of the ray tracer framework of Bert Freudenberg which unfortunately is no longer available.
 
+This framework was modified since its original use in the course "Computer Graphics" taught at the University of Groningen. The input for the framework consists of a .json file and an .obj file. The framework outputs an .obj file.
+
 ## Compiling the code
 
 We provided a [CMakeLists.txt](CMakeLists.txt) file to be used with `CMake`.
@@ -28,11 +30,11 @@ A simple build script has also been provided in `build.sh`.
 After compilation you should have the `ray` executable.
 This can be used like this:
 ```
-./ray <path to .json file> [output .png file]
+./ray <path to .json file> <path to .obj file>
 # when in the build directory:
-./ray ../scenes/other/scene01.json
+./ray ../scenes/cylinder/scene01.json ../models/object.obj
 ```
-Specifying an output is optional and by default an image will be created in
+NEEDS TO BE MODIGIED: Specifying an output is optional and by default an image will be created in
 the same directory as the source scene file with the `.json` extension replaced
 by `.png`.
 
@@ -44,7 +46,7 @@ by `.png`.
 
     Take a look at the provided example scenes for the general structure.
     You are encouraged to define your own scene files for testing your
-    application and for participating in the competition.
+    application.
 
 ### The ray tracer source files
 
@@ -79,6 +81,7 @@ by `.png`.
 * `lode/*`: Code for reading from and writing to PNG files,
     used by the `Image` class.
      lodepng is created by Lode Vandevenne and can be found on [github](https://github.com/lvandeve/lodepng).
+     This is not used in this version of the framework.
 
 * `json/*`: Code for parsing JSON documents.
     Created by Niels Lohmann and available under the MIT license on  [github](https://github.com/nlohmann/json).

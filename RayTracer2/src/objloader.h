@@ -10,25 +10,27 @@
 
 #include "vertex.h"
 
-class OBJLoader {
+class OBJLoader
+{
   bool d_hasTexCoords;
 
-  //had vec3 here
-  struct vec2 {
+  // had vec3 here
+  struct vec2
+  {
     float u;
     float v;
   };
 
-  //had d_coordinates and d_normals here
+  // had d_coordinates and d_normals here
   std::vector<vec2> d_texCoords;
 
-  //had d_vertices and Vertex_idx here
+  // had d_vertices and Vertex_idx here
 
   typedef std::vector<std::string> StringList;
 
- public:
-
-  struct vec3 {
+public:
+  struct vec3
+  {
     float x;
     float y;
     float z;
@@ -37,13 +39,14 @@ class OBJLoader {
   std::vector<vec3> d_coordinates;
   std::vector<vec3> d_normals;
 
-   /**
+  /**
    * @brief The Vertex struct
    * Contains indices into the above
    * QVectors to be able to reconstruct
    * the model
    */
-  struct Vertex_idx {
+  struct Vertex_idx
+  {
     size_t d_coord;
     size_t d_norm;
     size_t d_tex;
@@ -71,12 +74,10 @@ class OBJLoader {
 
   /**
    * @brief unitize: scale mesh to fit in unitcube
-   *
-   * TODO: Implement this method yourself!
    */
   void unitize();
 
- private:
+private:
   void parseFile(std::string const &filename);
   void parseLine(std::string const &line);
   void parseVertex(StringList const &tokens);
@@ -87,4 +88,4 @@ class OBJLoader {
   StringList split(std::string const &str, char splitChar, bool keepEmpty = true);
 };
 
-#endif  // OBJLOADER_H_
+#endif // OBJLOADER_H_
