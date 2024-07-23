@@ -43,8 +43,6 @@ pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
     min_hit = hit;
     obj = objects[0];
   }
-
-  // Hit hit(objects[0]->intersect(ray));
   return pair<ObjectPtr, Hit>(obj, hit);
 }
 
@@ -80,7 +78,7 @@ void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deform
 }
 
 // move cube mesh to the position given in the scene description
-void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
+void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
   cout << "move mesh based on object position.\n";
   for (int idx = 0; idx != objMesh.size(); ++idx)
   {
@@ -90,48 +88,39 @@ void Scene::pointToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInSc
   }
 }
 
-void Scene::translateDeformedObject(vector<Point> &object, Point newPosition) {
-  for (int i = 0; i < object.size(); ++i) {
-    object[i].x += newPosition.x;
-    object[i].y += newPosition.y;
-    object[i].z += newPosition.z;
+void Scene::checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh) {
+  // Prints the unitized mesh of the object to "unitizeObject.obj". 
+  // This way it is possible to check if the object shrinked uniformly.
+  vector<Point> unitizeTest;
+  for (int i = 0; i < mesh.size(); ++i)
+  {
+    Point objectPoint(mesh[i].x, mesh[i].y, mesh[i].z);
+    unitizeTest.push_back(objectPoint);
   }
+  printMeshToFile(unitizeTest, object.d_vertices, "../results/unitizedObject.obj");
 }
 
 void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);
-  cout << "About to call unitize.\n";
+
+  // Call when the ray that goes from the camera to a vertex on the object does not intersect the 
+  // mirror. This will result in "nan" values in the file of the deformed object.
   //loadObject.unitize();
+
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
-  //test
-  // vector<Point> unitizeTest;
-  // for (int i = 0; i < objectMesh.size(); ++i)
-  // {
-  //   Point objectPoint(objectMesh[i].x, objectMesh[i].y, objectMesh[i].z);
-  //   unitizeTest.push_back(objectPoint);
-  // }
-  // printMeshToFile(unitizeTest, loadObject.d_vertices, "../scenes/results/unitest.obj");
+  // Call only if "loadObject.unitize();" is called above.
+  //checkUnitizedMesh(loadObject, objectMesh);
 
   Point objectOrigin = objects[1].get()->getPosition();
   cout << "Object Origin: " << objectOrigin.x << ", " << objectOrigin.y << ", " << objectOrigin.z << "\n";
 
-  pointToScenePosition(objectMesh, objectOrigin);
+  moveToScenePosition(objectMesh, objectOrigin);
 
   vector<Point> deformedObject;
 
   deformObject(objectMesh, deformedObject);
-
-  //move so that deformed object is across the mirror from original object
-  cout << "cube point position before relocation: " << deformedObject[0].x << "/" << deformedObject[0].y << "/" << deformedObject[0].z << "\n";
-  //translate to origin of system
-  // Point toOrigin(-deformedObject[0].x, -deformedObject[0].y, -deformedObject[0].z);
-  // translateDeformedObject(deformedObject, toOrigin);
-  
-  // //translate to position in scene
-  // Point newPosition(objectOrigin.x, objectOrigin.y, -objectOrigin.z);
-  // translateDeformedObject(deformedObject, newPosition);
 
   printMeshToFile(deformedObject, loadObject.d_vertices, ofname);
 }

@@ -54,9 +54,9 @@ public:
 
   void deformObject(std::vector<OBJLoader::vec3> &objMesh, std::vector<Point> &deformedObject);
 
-  void pointToScenePosition(std::vector<OBJLoader::vec3> &objMesh, Point posInScene);
+  void moveToScenePosition(std::vector<OBJLoader::vec3> &objMesh, Point posInScene);
 
-  void translateDeformedObject(std::vector<Point> &object, Point newPosition);
+  void checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh);
 
 private:
   

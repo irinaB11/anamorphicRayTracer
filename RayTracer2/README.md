@@ -1,10 +1,10 @@
-# Ray tracer framework in C++ for Computer Graphics
+# Anamorphic Ray Tracer in C++
 
-This is a C++ framework for a ray tracer. It was created for the Computing Science course "Computer Graphics" taught at the University of Groningen.
+This is a C++ framework for a ray tracer. It was originally created for the Computing Science course "Computer Graphics" taught at the University of Groningen.
 
 This framework is inspired by and uses (some) code of the ray tracer framework of Bert Freudenberg which unfortunately is no longer available.
 
-This framework was modified since its original use in the course "Computer Graphics" taught at the University of Groningen. The input for the framework consists of a .json file and an .obj file. The framework outputs an .obj file.
+This framework was modified since its original use. The purpose of this version is to construct anamorphic sculptures. The input for the framework consists of a scene description and the mesh of an object. The output of the framework is another mesh. This mesh represents the deformation of the original object based on its reflection on a mirror (plane, cylinder, sphere) present in the scene.
 
 ## Compiling the code
 
@@ -34,6 +34,8 @@ This can be used like this:
 # when in the build directory:
 ./ray ../scenes/cylinder/scene01.json ../models/object.obj
 ```
+
+
 NEEDS TO BE MODIGIED: Specifying an output is optional and by default an image will be created in
 the same directory as the source scene file with the `.json` extension replaced
 by `.png`.
@@ -53,13 +55,9 @@ by `.png`.
 * `main.cpp`: Contains main(), starting point. Responsible for parsing
     command-line arguments.
 
-* `raytracer.cpp/.h`: Ray tracer class. Responsible for reading the scene description, starting the ray tracer and writing the result to an image file.
+* `raytracer.cpp/.h`: Ray tracer class. Responsible for reading the scene description, starting the ray tracer and writing the result to an .obj file.
 
-* `scene.cpp/.h`: Scene class. Contains code for the actual ray tracing.
-
-* `image.cpp/.h`: Image class, includes code for reading from and writing to PNG files.
-
-* `light.h`: Light class. Plain Old Data (POD) class. A colored light at a position in the scene.
+* `scene.cpp/.h`: Scene class. Contains code for the actual object deformation using ray tracing.
 
 * `ray.h`: Ray class. POD class. Ray from an origin point in a direction.
 
@@ -70,7 +68,13 @@ by `.png`.
 
 * `shapes (directory/folder)`: Folder containing all your shapes.
 
-* `sphere.cpp/.h (inside shapes)`: Sphere class, which is a subclass of the `Object` class. Represents a sphere in the scene.
+* `sphere.cpp/.h (inside shapes)`: Sphere class, which is a subclass of the `Object` class. Represents a sphere in the scene. This is usually a spherical mirror.
+
+* `cylinder.cpp/.h (inside shapes)`: Cylinder class, which is a subclass of the `Object` class. Represents a cylinder in the scene. This is usually a cylindrical mirror.
+
+* `quad.cpp/.h (inside shapes)`: Quad class, which is a subclass of the `Object` class. Represents a 2D plane in the scene. This is usually a plane mirror.
+
+* `mesh.cpp/.h (inside shapes)`: Mesh class, which is a subclass of the `Object` class. Represents the mesh of an object in the scene. This is the object that is deformed.
 
 * `triple.cpp/.h`: Triple class. Represents a three-dimensional vector which is used for colors, points and vectors.
     Includes a number of useful functions and operators, see the comments in `triple.h`.
