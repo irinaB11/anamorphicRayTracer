@@ -38,8 +38,10 @@ bool Raytracer::parseObjectNode(json const &node) {
       Vector rotation(node["rotation"]);
       double angle = node["angle"];
       obj = ObjectPtr(new Sphere(pos, radius, rotation, angle));
+      cout << "Parsing sphere.\n";
     } else {
       obj = ObjectPtr(new Sphere(pos, radius));
+      cout << "Parsing sphere.\n";
     }
   }
   else if (node["type"] == "quad") {
@@ -48,6 +50,7 @@ bool Raytracer::parseObjectNode(json const &node) {
       Point v2(node["v2"]);
       Point v3(node["v3"]);
       obj = ObjectPtr(new Quad(v0, v1, v2, v3));
+      cout << "Parsing quad.\n";
   } else if (node["type"] == "cylinder") {
       Point pos(node["position"]);
       double radius = node["radius"];

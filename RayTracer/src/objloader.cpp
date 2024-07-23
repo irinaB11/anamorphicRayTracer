@@ -27,10 +27,10 @@ vector<Vertex> OBJLoader::vertex_data() const
 {
   vector<Vertex> data;
 
-  //For all vertices in the model, interleave the data
+  //For all vertices in the model, interleave the data.
   std::cout << "I have " << d_vertices.size() << " vertices before loop:)\n";
   for (Vertex_idx const &vertex : d_vertices) {
-    // Add coordinate data
+    // Add coordinate data.
     Vertex vert;
 
     vec3 const coord = d_coordinates.at(vertex.d_coord);
@@ -38,13 +38,13 @@ vector<Vertex> OBJLoader::vertex_data() const
     vert.y = coord.y;
     vert.z = coord.z;
 
-    // Add normal data
+    // Add normal data.
     vec3 const norm = d_normals.at(vertex.d_norm);
     vert.nx = norm.x;
     vert.ny = norm.y;
     vert.nz = norm.z;
 
-    // Add texture data (if available)
+    // Add texture data (if available).
     if (d_hasTexCoords) {
       vec2 const tex = d_texCoords.at(vertex.d_tex);
       vert.u = tex.u;  // u coordinate
@@ -92,7 +92,7 @@ void OBJLoader::unitize()
       d_coordinates[idx].y /= offsetY;
       d_coordinates[idx].z /= offsetZ;
     }
-    cout << "Object mesh has been scaled. \n";
+    cout << "Object mesh is shrinked to its corresponding unit cube. \n";
   }
 }
 
@@ -157,24 +157,24 @@ void OBJLoader::parseTexCoord(StringList const &tokens) {
 
 
 void OBJLoader::parseFace(StringList const &tokens) {
-  // skip the first token ("f")
+  // Skip the first token ("f").
   for (size_t idx = 1; idx < tokens.size(); ++idx) {
-    // format is:
+    // Format is:
     // <vertex idx + 1>/<texture idx +1>/<normal idx + 1>
-    // Wavefront .obj files start counting from 1 (yuck)
+    // Wavefront .obj files start counting from 1.
 
     StringList elements = split(tokens.at(idx), '/');
     Vertex_idx vertex{};  // initialize to zeros on all fields
 
-    vertex.d_coord = stoul(elements.at(0)); //used to be -1U
+    vertex.d_coord = stoul(elements.at(0)); // If this gives problems, add -1U on the right hand side.
 
     if (d_hasTexCoords) {
-      vertex.d_tex = stoul(elements.at(1)); //used to be -1U
+      vertex.d_tex = stoul(elements.at(1)); // If this gives problems, add -1U on the right hand side.
     } else {
       vertex.d_tex = 0U;  // ignored
     }
 
-    vertex.d_norm = stoul(elements.at(2)); //used to be -1U
+    vertex.d_norm = stoul(elements.at(2)); // If this gives problems, add -1U on the right hand side.
 
     d_vertices.push_back(vertex);
   }

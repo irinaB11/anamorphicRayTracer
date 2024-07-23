@@ -14,17 +14,13 @@ class OBJLoader
 {
   bool d_hasTexCoords;
 
-  // had vec3 here
   struct vec2
   {
     float u;
     float v;
   };
 
-  // had d_coordinates and d_normals here
   std::vector<vec2> d_texCoords;
-
-  // had d_vertices and Vertex_idx here
 
   typedef std::vector<std::string> StringList;
 

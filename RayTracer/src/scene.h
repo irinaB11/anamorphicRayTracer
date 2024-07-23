@@ -39,7 +39,7 @@ public:
   // trace a ray into the scene and the point of the deformed object
   Point trace(Ray const &ray);
 
-  // render object the given file
+  // render object to the given file
   void render(std::string const &filePath, std::string const &ofname);
 
   void addObject(ObjectPtr obj);
@@ -56,9 +56,7 @@ public:
 
   void moveToScenePosition(std::vector<OBJLoader::vec3> &objMesh, Point posInScene);
 
-  void checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh);
-
-private:
+  void checkUnitizedMesh(OBJLoader &object, std::vector<OBJLoader::vec3> &mesh);
   
 };
 

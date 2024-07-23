@@ -5,7 +5,7 @@
 
 #include "json/json_fwd.h"
 
-// Color, Point and Vector are all Triples (name them so)
+// Color, Point and Vector are all Triples (name them so).
 class Triple;
 typedef Triple Color;
 typedef Triple Point;

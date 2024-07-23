@@ -23,7 +23,6 @@ void Scene::printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vert
     out << "v " << deformedObject[j].x << ' ' << deformedObject[j].y << ' ' << deformedObject[j].z << "\n";
   }
 
-  cout << "size of d_vertices in scene.cpp: " << objectFaces.size() << "\n";
   for (int i = 0; i < objectFaces.size(); i += 3)
   {
     out << "f " << objectFaces[i].d_coord << " " << objectFaces[i + 1].d_coord << " " << objectFaces[i + 2].d_coord << "\n";
@@ -34,7 +33,7 @@ void Scene::printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vert
 
 pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
 {
-  // the first object in the scene is the mirror
+  // the first object in the scene object pointer is the mirror
   Hit min_hit(numeric_limits<double>::infinity(), Vector());
   ObjectPtr obj = nullptr;
   Hit hit(objects[0]->intersect(ray));
@@ -46,7 +45,7 @@ pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
   return pair<ObjectPtr, Hit>(obj, hit);
 }
 
-// start point for ray is the eye. The ray ends in a cube vertex.
+// Start point for ray is the eye (camera). The ray ends in a mesh vertex.
 Point Scene::trace(Ray const &ray)
 {
   pair<ObjectPtr, Hit> hit = castRay(ray);
@@ -64,7 +63,8 @@ Point Scene::trace(Ray const &ray)
   return V;
 }
 
-void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deformedObject) {
+void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deformedObject)
+{
   for (int i = 0; i < objMesh.size(); ++i)
   {
     Point objectPoint(objMesh[i].x, objMesh[i].y, objMesh[i].z);
@@ -77,9 +77,9 @@ void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deform
   }
 }
 
-// move cube mesh to the position given in the scene description
-void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene) {
-  cout << "move mesh based on object position.\n";
+// Move mesh to the position given in the scene description.
+void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene)
+{
   for (int idx = 0; idx != objMesh.size(); ++idx)
   {
     objMesh[idx].x = objMesh[idx].x + posInScene.x;
@@ -88,8 +88,9 @@ void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInSce
   }
 }
 
-void Scene::checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh) {
-  // Prints the unitized mesh of the object to "unitizeObject.obj". 
+void Scene::checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh)
+{
+  // Prints the unitized mesh of the object to "../results/unitizeObject.obj".
   // This way it is possible to check if the object shrinked uniformly.
   vector<Point> unitizeTest;
   for (int i = 0; i < mesh.size(); ++i)
@@ -104,17 +105,16 @@ void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);
 
-  // Call when the ray that goes from the camera to a vertex on the object does not intersect the 
+  // Call when the ray that goes from the camera to a vertex on the object does not intersect the
   // mirror. This will result in "nan" values in the file of the deformed object.
-  //loadObject.unitize();
+  // loadObject.unitize();
 
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
   // Call only if "loadObject.unitize();" is called above.
-  //checkUnitizedMesh(loadObject, objectMesh);
+  // checkUnitizedMesh(loadObject, objectMesh);
 
   Point objectOrigin = objects[1].get()->getPosition();
-  cout << "Object Origin: " << objectOrigin.x << ", " << objectOrigin.y << ", " << objectOrigin.z << "\n";
 
   moveToScenePosition(objectMesh, objectOrigin);
 
