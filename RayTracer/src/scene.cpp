@@ -107,7 +107,7 @@ void Scene::render(string const &objFile, string const &ofname)
 
   // Call when the ray that goes from the camera to a vertex on the object does not intersect the
   // mirror. This will result in "nan" values in the file of the deformed object.
-  // loadObject.unitize();
+  loadObject.unitize();
 
   vector<OBJLoader::vec3> objectMesh = loadObject.d_coordinates;
 
