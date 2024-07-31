@@ -6,7 +6,7 @@ This framework is inspired by and uses (some) code of the ray tracer framework o
 
 This framework was modified since its original use. The purpose of this version is to construct anamorphic sculptures. The input for the framework consists of a scene description and the mesh of an object. The output of the framework is another mesh. This mesh represents the deformation of the original object based on its reflection on a mirror (plane, cylinder, sphere) present in the scene.
 
-The resulting objects of this program are used in [VRT](https://github.com/irinaB11/Virtual-Ray-Tracer-Anamorphic-Sculptures) to build a scene that explains the process of creating anamorphic sculptures. It is also possible to check the reflections of these objects in real time in VRT.
+The resulting objects of this program are used in [VRT](https://github.com/irinaB11/Virtual-Ray-Tracer-Anamorphic-Sculptures/tree/VRT-RTX-Anamorphic-Sculptures) to build a scene that explains the process of creating anamorphic sculptures. It is also possible to check the reflections of these objects in real-time in VRT.
 
 ## Compiling the code
 
