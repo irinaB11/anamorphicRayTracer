@@ -14,6 +14,9 @@
 
 using namespace std;
 
+/*
+ * Writes the vertices and the faces of the deformed mesh to the given file.
+ */
 void Scene::printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vertex_idx> objectFaces, string const &ofname)
 {
   // write deformed mesh to output file
@@ -31,6 +34,9 @@ void Scene::printMeshToFile(vector<Point> deformedObject, vector<OBJLoader::Vert
   out.close();
 }
 
+/*
+ * Calculates the intersection point between a ray and the mirror. 
+ */
 pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
 {
   // the first object in the scene object pointer is the mirror
@@ -45,7 +51,9 @@ pair<ObjectPtr, Hit> Scene::castRay(Ray const &ray) const
   return pair<ObjectPtr, Hit>(obj, hit);
 }
 
-// Start point for ray is the eye (camera). The ray ends in a mesh vertex.
+/*
+ * Calculates the new position of the vertex along the reflection ray.
+ */
 Point Scene::trace(Ray const &ray)
 {
   pair<ObjectPtr, Hit> hit = castRay(ray);
@@ -63,6 +71,10 @@ Point Scene::trace(Ray const &ray)
   return V;
 }
 
+/* 
+ * For every vertex in the mesh, the ray starting from the camera going to the vertex is
+ * calculated. A fucntion that calculates the deformed vertex is then called.
+ */
 void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deformedObject)
 {
   for (int i = 0; i < objMesh.size(); ++i)
@@ -77,7 +89,9 @@ void Scene::deformObject(vector<OBJLoader::vec3> &objMesh, vector<Point> &deform
   }
 }
 
-// Move mesh to the position given in the scene description.
+/*
+ * Move the mesh to the position given in the scene description.
+ */ 
 void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInScene)
 {
   for (int idx = 0; idx != objMesh.size(); ++idx)
@@ -88,6 +102,9 @@ void Scene::moveToScenePosition(vector<OBJLoader::vec3> &objMesh, Point posInSce
   }
 }
 
+/* 
+ * Helper function to check if the original mesh shrinked correctly.
+ */
 void Scene::checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh)
 {
   // Prints the unitized mesh of the object to "../results/unitizeObject.obj".
@@ -101,6 +118,12 @@ void Scene::checkUnitizedMesh(OBJLoader &object, vector<OBJLoader::vec3> &mesh)
   printMeshToFile(unitizeTest, object.d_vertices, "../results/unitizedObject.obj");
 }
 
+/*
+ * Loads the mesh of the obejct that will be deformed. Then calls functions to shrink it,
+ * if it is necessary. Then it moves the points of the mesh such that the object is 
+ * positioned in the scene at the position given in the file description. After that it
+ * calls the function to deform the mesh and prints it to the file pased to the function.
+ */
 void Scene::render(string const &objFile, string const &ofname)
 {
   OBJLoader loadObject(objFile);

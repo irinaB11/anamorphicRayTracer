@@ -77,6 +77,9 @@ bool Raytracer::parseObjectNode(json const &node) {
   return true;
 }
 
+/* 
+ * Parses the .json file containing the scene description.
+*/
 bool Raytracer::readScene(string const &ifname) try {
   // Read and parse input json file
   ifstream infile(ifname);
@@ -107,7 +110,10 @@ bool Raytracer::readScene(string const &ifname) try {
   return false;
 }
 
-
+/*
+ * Calls render from 'scene.cpp' which starts the deformation process and saves the new 
+ * obejct to the file name in variable 'ofname'.
+ */
 void Raytracer::renderToFile(string const &ofname, string const &objFile) {
   scene.render(objFile, ofname);
   cout << "Writing object to " << ofname << "...\n";

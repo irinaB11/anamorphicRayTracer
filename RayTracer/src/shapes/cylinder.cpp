@@ -40,6 +40,9 @@ Hit Cylinder::intersect(Ray const &ray)
     Point hit = ray.at(t1);
     Vector N = (hit - position).normalized();
 
+    // Note that the direction of the normal is not changed here,
+    // but in scene.cpp - if necessary.
+
     return Hit(t1, N);
 }
 

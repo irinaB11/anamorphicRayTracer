@@ -63,6 +63,10 @@ unsigned OBJLoader::numTriangles() const { return d_vertices.size() / 3U; }
 
 bool OBJLoader::hasTexCoords() const { return d_hasTexCoords; }
 
+/*
+ * Finds the bounding box of a mesh. Then it uniformly schrinks it so that it fits in
+ * the unit cube.
+ */
 void OBJLoader::unitize()
 {
   float minX = 0;
